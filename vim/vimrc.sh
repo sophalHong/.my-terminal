@@ -47,6 +47,23 @@ highlight LineNr ctermfg=grey
 highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
 hi SpellBad ctermfg=yellow ctermbg=red
 hi SpellCap ctermfg=none ctermbg=red
+
+"======Autoload cscope.out=======
+function! LoadCscope()
+  let db = findfile("cscope.out", ".;")
+    if (!empty(db))
+        let path = strpart(db, 0, match(db, "/cscope.out$"))
+        set nocscopeverbose " suppress 'duplicate connection' error
+        exe "cs add " . db . " " . path
+        set cscopeverbose
+        " else add the database pointed to by environment variable
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+endfunction
+au BufEnter /* call LoadCscope()
+"==================================
+
 "==================End Default setting================
 EOF
 
