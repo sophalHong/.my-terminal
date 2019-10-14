@@ -4,6 +4,14 @@ if ! [ -x "$(command -v vim)" ]; then
     sudo apt install -y vim;
 fi
 
+if ! [ -x "$(command -v git)" ]; then
+    echo "Installing git..." >&2
+    sudo apt install -y git;
+fi
+
+# Get vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
 read -d '' VAR << EOF
 "============Vundle=========
 set nocompatible              " be iMproved, required
