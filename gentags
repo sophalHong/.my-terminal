@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CSCOPE_DIR="$PWD/cscope"
+CSCOPE_DIR="$PWD/.cscope"
 
 if ! [ -x "$(command -v cscope)" ]; then
     echo "Installing cscope..." >&2
@@ -13,6 +13,7 @@ fi
  
 echo "Finding files ..."
 find "$PWD" -name '*.[ch]' \
+-o -name '*.go' \
 -o -name '*.java' \
 -o -name '*properties' \
 -o -name '*.cpp' \
@@ -22,9 +23,13 @@ find "$PWD" -name '*.[ch]' \
 -o -name '*.php' > "$CSCOPE_DIR/cscope.files"
  
 echo "Adding files to cscope db: $PWD/cscope.db ..."
-cscope -b -i "$CSCOPE_DIR/cscope.files"
+pushd $CSCOPE_DIR
+cscope -b 
+popd
+#cscope -b -i "$CSCOPE_DIR/cscope.files"
+
  
-export CSCOPE_DB="$PWD/cscope.out"
+export CSCOPE_DB="$CSCOPE_DIR/cscope.out"
 #CSCOPE_DB=$PWD/cscope.out
 #export CSCOPE_DB
 echo "Exported CSCOPE_DB to: '$CSCOPE_DB'"
