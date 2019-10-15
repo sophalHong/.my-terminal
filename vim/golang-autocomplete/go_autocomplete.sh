@@ -21,7 +21,7 @@ fi
 
 if [ -f ~/.vimrc ]; then
     echo "backup ~/.vimrc [.vimrc_bak]"
-    mv ~/.vimrc ~/.vimrc_bak
+    cp ~/.vimrc ~/.vimrc_bak
 else
     cat > ~/.vimrc << EOF
 "==================Default setting===================
@@ -91,7 +91,6 @@ w
 q
 END
 	fi
-
 
 PlugBeginLine=`awk '/call plug#begin/{print NR; exit}' ~/.vimrc`
 
