@@ -4,6 +4,11 @@ if ! [ -x "$(command -v vim)" ]; then
     sudo apt install -y vim;
 fi
 
+# Backup ~/.vim and ~/.vimrc
+[ -d ~/.vim ] && mv ~/.vim ~/.vim_bak`date +%y%m%d_%H%M`
+[ -f ~/.vimrc ] && mv ~/.vimrc ~/.vimrc_bak`date +%y%m%d_%H%M`
+
+mkdir ~/.vim
 cat > ~/.vimrc << EOF
 "==================Default setting===================
 colorscheme peachpuff   " awesome colorscheme
@@ -11,7 +16,7 @@ colorscheme peachpuff   " awesome colorscheme
 syntax enable           " enable syntax processing
 
 "Indentation without hard tabs :
-set expandtab           " tabs are spaces
+"set expandtab           " tabs are spaces
 set softtabstop=4       " number of spaces in tab when editing
 set tabstop=4           " number of visual spaces per TAB
 set shiftwidth=4        " automatically indent next line (if, {, ...)
@@ -38,15 +43,37 @@ if has("syntax")
 endif
 if has("autocmd")       " Jump to last position when reopening file
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-if has("autocmd")       " Load indentation rules and plugins
-  filetype plugin indent on
+  filetype plugin indent on " Load indentation rules and plugins
 endif
 
 highlight LineNr ctermfg=grey
 highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
 hi SpellBad ctermfg=yellow ctermbg=red
 hi SpellCap ctermfg=none ctermbg=red
+"==================End Default setting================
+
+"==================Useful plugin=====================
+"Plug 'Valloric/YouCompleteMe' "For C/C++/Objective-C/C++/CUDA
+"Plug 'bundle/YCM-Generator', { 'branch': 'stable'}
+"Plug 'fatih/vim-go' , { 'do': ':GoInstallBinaries' }
+"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'scrooloose/nerdtree' ":map <C-@> :NERDTreeToggle<CR>
+"Plug 'majutsushi/tagbar' ":nnoremap <Space> :TagbarToggle<CR>
+
+"Plug 'nathanaelkane/vim-indent-guides' ":map <c-i> :IndentGuidesToggle<CR>
+"if exists(':IndentGuidesToggle')
+"	let g:indent_guides_guide_size = 1
+"	let g:indent_guides_auto_colors = 0
+"	autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=235
+"	autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=237
+"endif
+
+"Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-surround'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+"Plug 'VundleVim/Vundle.vim'
 
 "======Autoload cscope.out=======
 function! LoadCscope()
@@ -57,14 +84,13 @@ function! LoadCscope()
         exe "cs add " . db . " " . path
         set cscopeverbose
         " else add the database pointed to by environment variable
-    elseif $CSCOPE_DB != ""
-        cs add $CSCOPE_DB
+    elseif \$CSCOPE_DB != ""
+        cs add \$CSCOPE_DB
     endif
 endfunction
 au BufEnter /* call LoadCscope()
 "==================================
 
-"==================End Default setting================
 EOF
 
 echo "Updated ~/.vimrc";
