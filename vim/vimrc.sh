@@ -60,7 +60,8 @@ hi SpellCap ctermfg=none ctermbg=red
 "Plug 'scrooloose/nerdtree' ":map <C-@> :NERDTreeToggle<CR>
 "Plug 'majutsushi/tagbar' ":nnoremap <Space> :TagbarToggle<CR>
 
-"Plug 'nathanaelkane/vim-indent-guides' ":map <c-i> :IndentGuidesToggle<CR>
+"Plug 'nathanaelkane/vim-indent-guides' 
+"map <c-i> :IndentGuidesToggle<CR>
 "if exists(':IndentGuidesToggle')
 "	let g:indent_guides_guide_size = 1
 "	let g:indent_guides_auto_colors = 0
@@ -70,8 +71,14 @@ hi SpellCap ctermfg=none ctermbg=red
 
 "Plug 'tpope/vim-fugitive'
 "Plug 'tpope/vim-surround'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+"let g:airline_left_sep = ""
+"let g:airline_right_sep = ""
 
 "Plug 'VundleVim/Vundle.vim'
 
