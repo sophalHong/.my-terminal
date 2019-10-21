@@ -1,0 +1,11 @@
+#!/bin/bash
+if ! [ -x "$(command -v tmux)" ]; then
+    echo "Installing tmux..." >&2
+    sudo apt install -y tmux;
+fi
+
+[ ! -f ./tmux.conf ] && echo "[ERROR] 'tmux.conf' not found!" && exit || 
+	cp ./tmux.conf ~/.tmux.conf && echo "[OK] ~/.tmux.conf"
+
+[ ! -f ./tmux.conf.local ] && echo "[ERROR] 'tmux.conf.local' not found!" && exit || 
+	cp ./tmux.conf.local ~/.tmux.conf.local && echo "[OK] ~/.tmux.conf.local"
