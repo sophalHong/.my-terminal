@@ -51,6 +51,46 @@ highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
 hi SpellBad ctermfg=yellow ctermbg=red
 hi SpellCap ctermfg=none ctermbg=red
 "==================End Default setting================
+"=======Key mappings=======
+nnoremap th :tabfirst<CR>
+nnoremap tl :tablast<CR>
+nnoremap tn :tabnext<CR>
+nnoremap tp :tabprevious<CR>
+nnoremap to :tabnew<CR>
+nnoremap tc :tabclose<CR>
+nnoremap ts :tabs<CR>
+nnoremap te :tabedit<Space>
+nnoremap tf :tabfind<Space>
+nnoremap tm :tabmove<Space>
+
+execute "set <A-1>=\e1"
+execute "set <A-2>=\e2"
+execute "set <A-3>=\e3"
+execute "set <A-4>=\e4"
+execute "set <A-5>=\e5"
+execute "set <A-6>=\e6"
+execute "set <A-7>=\e7"
+execute "set <A-8>=\e8"
+execute "set <A-9>=\e9"
+nnoremap <A-1> 1gt
+nnoremap <A-2> 2gt
+nnoremap <A-3> 3gt
+nnoremap <A-4> 4gt
+nnoremap <A-5> 5gt
+nnoremap <A-6> 1gt
+nnoremap <A-7> 7gt
+nnoremap <A-8> 8gt
+nnoremap <A-9> 9gt
+
+nnoremap we :edit<Space>
+nnoremap wn :new<CR>
+nnoremap wns :new<Space>
+nnoremap wnv :vnew<Space>
+"resize
+"Ctrl-w + , Ctrl-w - , Ctrl-w _
+"Ctrl-w > , Ctrl-w < , Ctrl-w |
+"Ctrl-w =
+"========================
 
 "==================Useful plugin=====================
 "Plug 'Valloric/YouCompleteMe' "For C/C++/Objective-C/C++/CUDA
