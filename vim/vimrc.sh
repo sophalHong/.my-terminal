@@ -83,9 +83,9 @@ nnoremap <A-8> 8gt
 nnoremap <A-9> 9gt
 
 nnoremap we :edit<Space>
-nnoremap wn :new<CR>
-nnoremap wns :new<Space>
-nnoremap wnv :vnew<Space>
+nnoremap wo :new<CR>
+nnoremap ws :new<Space>
+nnoremap wv :vnew<Space>
 "resize
 "Ctrl-w + , Ctrl-w - , Ctrl-w _
 "Ctrl-w > , Ctrl-w < , Ctrl-w |
@@ -97,28 +97,37 @@ nnoremap wnv :vnew<Space>
 "Plug 'bundle/YCM-Generator', { 'branch': 'stable'}
 "Plug 'fatih/vim-go' , { 'do': ':GoInstallBinaries' }
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'scrooloose/nerdtree' ":map <C-@> :NERDTreeToggle<CR>
-"Plug 'majutsushi/tagbar' ":nnoremap <Space> :TagbarToggle<CR>
+
+"Plug 'scrooloose/nerdtree'
+autocmd VimEnter * if exists(":NERDTreeToggle") | exe "map <C-@> :NERDTreeToggle<CR>" | endif
+
+"Plug 'majutsushi/tagbar'
+autocmd VimEnter * if exists(":TagbarToggle") | exe	"nnoremap <Space> :TagbarToggle<CR>" | endif
 
 "Plug 'nathanaelkane/vim-indent-guides' 
-"map <c-i> :IndentGuidesToggle<CR>
-"if exists(':IndentGuidesToggle')
-"	let g:indent_guides_guide_size = 1
-"	let g:indent_guides_auto_colors = 0
-"	autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=235
-"	autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=237
-"endif
+autocmd VimEnter * if exists(":IndentGuidesToggle") | exe "map <c-i> :IndentGuidesToggle<CR>" | endif
+let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=235
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=237
+
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_left_sep = ""
+let g:airline_right_sep = ""
+
+"Plug 'rakr/vim-one'
+"Plug 'altercation/vim-colors-solarized'
+"Plug 'dracula/vim', { 'as': 'dracula' }
+"Plug 'morhetz/gruvbox'
+"Plug 'gosukiwi/vim-atom-dark'
+"Plug 'powerline/powerline'
 
 "Plug 'tpope/vim-fugitive'
 "Plug 'tpope/vim-surround'
-
-"Plugin 'vim-airline/vim-airline'
-"Plugin 'vim-airline/vim-airline-themes'
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
-"let g:airline_left_sep = ""
-"let g:airline_right_sep = ""
 
 "Plug 'VundleVim/Vundle.vim'
 
@@ -139,5 +148,30 @@ au BufEnter /* call LoadCscope()
 "==================================
 
 EOF
+
+# Install vim-plug
+if [ ! -f ~/.vim/autoload/plug.vim ]; then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+fi
+
+# Add plug function into ~/.vimrc
+if ! grep -q "^call plug#begin('~/.vim/plugged')" ~/.vimrc; then
+	ed --quiet ~/.vimrc <<-END
+	1i
+	call plug#begin('~/.vim/plugged')
+	Plug 'scrooloose/nerdtree'
+	Plug 'majutsushi/tagbar'
+	Plug 'nathanaelkane/vim-indent-guides' 
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+	" Insert plugin here
+	call plug#end()
+	.
+	w
+	q
+	END
+fi
 
 echo "Updated ~/.vimrc";
