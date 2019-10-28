@@ -150,6 +150,10 @@ au BufEnter /* call LoadCscope()
 EOF
 
 # Install vim-plug
+if ! [ -x "$(command -v curl)" ]; then
+    echo "Installing curl..." >&2
+    sudo apt install -y curl;
+fi
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -162,7 +166,7 @@ if ! grep -q "^call plug#begin('~/.vim/plugged')" ~/.vimrc; then
 	1i
 	call plug#begin('~/.vim/plugged')
 	Plug 'scrooloose/nerdtree'
-	Plug 'majutsushi/tagbar'
+	Plug 'majutsushi/tagbar', {'do': 'sudo apt install exuberant-ctags -y'}
 	Plug 'nathanaelkane/vim-indent-guides' 
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
@@ -172,6 +176,8 @@ if ! grep -q "^call plug#begin('~/.vim/plugged')" ~/.vimrc; then
 	w
 	q
 	END
+
+	vim +slient +VimEnter +PlugInstall +qall
 fi
 
 echo "Updated ~/.vimrc";
