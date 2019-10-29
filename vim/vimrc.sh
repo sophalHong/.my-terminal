@@ -168,7 +168,7 @@ if ! grep -q "^call plug#begin('~/.vim/plugged')" ~/.vimrc; then
 	Plug 'scrooloose/nerdtree'
 	Plug 'majutsushi/tagbar', {'do': 'sudo apt install exuberant-ctags -y'}
 	Plug 'nathanaelkane/vim-indent-guides' 
-	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline', {'do': 'sudo apt install fonts-powerline -y'}
 	Plug 'vim-airline/vim-airline-themes'
 	" Insert plugin here
 	call plug#end()
