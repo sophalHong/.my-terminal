@@ -36,7 +36,7 @@ set foldenable          " enable folding
 set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
 set foldmethod=indent   " fold based on indent level
-set textwidth=80        " wrap text at 80 characters
+"set textwidth=80        " wrap text at 80 characters
 
 if has("syntax")
    syntax on            " syntax highlighting
