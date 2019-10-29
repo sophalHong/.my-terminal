@@ -1,30 +1,26 @@
-alias root='sudo -s'
-alias cd_tmax_installer_dir='cd /home/sophal/tmax_linux_installer'
-alias cd_TOS-agent_dir='cd /home/sophal/TOS-project/SysManager/SysManagerAgent'
-alias cd_sysmgr-agent_src_dir='cd /home/sophal/SysManagerAgent/src'
-alias cd_build-agent-dir='cd ~/SysManagerAgent/build/'
+case "$TERM" in
+    xterm|xterm-color|*-256color) 
+    	PS1='${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;31m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ';;
+esac
 
-alias ssh_agent-vm='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.199' #pw: tmax
-alias ssh_vm-18='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.18' #pw: root
-alias ssh_u18='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.106' #pw: root
-alias ssh_agent='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.103' #pw: tmax
+# Golang env
+export GOPATH=~/go
+export GOBIN=~/go/bin
+export PATH=$PATH:/usr/local/go/bin:$GOBIN
+
+alias root='sudo -s'
+alias sb='source ~/.bashrc'
+
+alias ssh_u18='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.101' #pw: root
+alias ssh_w10='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.102' #pw: root
+alias ssh_dev='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.103' #pw: root
+alias ssh_tos='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.105' #pw: root
+
 alias ssh_tmax-cloud-ssh='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@175.195.163.11' #pw: tmax@cloud
 alias ssh_ftp-clouduser-ssh='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 clouduser@192.168.2.175' #pw: tmaxcloud
 alias ssh_pdc_compute='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@222.122.51.194' #pw: tmax@23
 alias ssh_pdc_master='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@222.122.50.2' #pw: tmax@23
 alias ssh_QA='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@172.22.7.2' #pw: tmax@23
-alias ssh_tos='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.6.129' #pw: agent1234
-
-alias ssh_k8s_server='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.90' #pw: root
-alias ssh_k8s_c1='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.91' #pw: root
-
-alias chk_sysmgr_agent_pid='ps -ef | grep -v "grep" | grep sysmgr-agent'
-alias pkill-sysmgr-agent='pkill sysmgr-agent'
-
-alias run_agent-only='sysmgr-agent --agent-id -1 --sysmgr-ip 0.0.0.0 --sysmgr-port 1234 --log-level info --run-type agentOnly --log-dir ~/log-agentOnly'
-alias run_agent-master='sysmgr-agent --agent-id -1 --sysmgr-ip 192.168.60.132 --sysmgr-port 1234 --log-level info --run-type agentWithMaster --log-dir ~/log-master'
-
-export CSCOPE_DB=/root/cscope.out
 
 # Kubernetes nodes
 alias k8s_master='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.90' #pw: root
