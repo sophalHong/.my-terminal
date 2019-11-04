@@ -52,6 +52,11 @@ hi SpellBad ctermfg=yellow ctermbg=red
 hi SpellCap ctermfg=none ctermbg=red
 "==================End Default setting================
 "=======Key mappings=======
+nnoremap bd :bdelete<Space>
+nnoremap bq :bdelete<CR>
+nnoremap bn :bnext<CR>
+nnoremap bp :bprevious<CR>
+
 nnoremap th :tabfirst<CR>
 nnoremap tl :tablast<CR>
 nnoremap tn :tabnext<CR>
@@ -62,6 +67,15 @@ nnoremap ts :tabs<CR>
 nnoremap te :tabedit<Space>
 nnoremap tf :tabfind<Space>
 nnoremap tm :tabmove<Space>
+
+nnoremap we :edit<Space>
+nnoremap wo :new<CR>
+nnoremap ws :new<Space>
+nnoremap wv :vnew<Space>
+"resize
+"Ctrl-w + , Ctrl-w - , Ctrl-w _
+"Ctrl-w > , Ctrl-w < , Ctrl-w |
+"Ctrl-w =
 
 execute "set <A-1>=\e1"
 execute "set <A-2>=\e2"
@@ -81,16 +95,6 @@ nnoremap <A-6> 1gt
 nnoremap <A-7> 7gt
 nnoremap <A-8> 8gt
 nnoremap <A-9> 9gt
-
-nnoremap we :edit<Space>
-nnoremap wo :new<CR>
-nnoremap ws :new<Space>
-nnoremap wv :vnew<Space>
-"resize
-"Ctrl-w + , Ctrl-w - , Ctrl-w _
-"Ctrl-w > , Ctrl-w < , Ctrl-w |
-"Ctrl-w =
-"========================
 
 "==================Useful plugin=====================
 "Plug 'Valloric/YouCompleteMe' "For C/C++/Objective-C/C++/CUDA
