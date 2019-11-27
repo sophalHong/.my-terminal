@@ -10,6 +10,8 @@ export PATH=$PATH:/usr/local/go/bin:$GOBIN
 
 alias root='sudo -s'
 alias sb='source ~/.bashrc'
+# maven bash completion
+source ~/maven_completion.bash
 
 alias ssh_u18='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.101' #pw: root
 alias ssh_w10='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.102' #pw: root
