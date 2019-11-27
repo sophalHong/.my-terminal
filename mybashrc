@@ -7,11 +7,15 @@ esac
 export GOPATH=~/go
 export GOBIN=~/go/bin
 export PATH=$PATH:/usr/local/go/bin:$GOBIN
+export CGO_ENABLED=0
 
 alias root='sudo -s'
 alias sb='source ~/.bashrc'
 # maven bash completion
 source ~/maven_completion.bash
+
+alias generate_ctags='source ~/config/gentags_cscope'
+alias q='exit'
 
 alias ssh_u18='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.101' #pw: root
 alias ssh_w10='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.102' #pw: root
@@ -25,8 +29,17 @@ alias ssh_pdc_master='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@22
 alias ssh_QA='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@172.22.7.2' #pw: tmax@23
 
 # Kubernetes nodes
-alias k8s_master='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.90' #pw: root
-alias k8s_node-1='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.91' #pw: root
-alias k8s_node-2='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.92' #pw: root
-alias k8s_node-3='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.93' #pw: root
-alias k8s_node-4='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.94' #pw: root
+alias ssh_k8s_master='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 k8s@192.168.0.90' #pw: root
+alias ssh_k8s_node-1='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 k8s@192.168.0.91' #pw: root
+alias ssh_k8s_node-2='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 k8s@192.168.0.92' #pw: root
+alias ssh_k8s_node-3='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 k8s@192.168.0.93' #pw: root
+alias ssh_k8s_node-4='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 k8s@192.168.0.94' #pw: root
+
+alias k8s='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 k8s@192.168.0.101' #pw: k8s
+
+# tmp
+alias gosrc='cd ~/go/src'
+
+# Docker
+# docker build -t [DOCKER_ACC]/[DOCKER_REPO]:[IMG_TAG] .
+# docker build -t gildong/hyperstorage:test1 .
