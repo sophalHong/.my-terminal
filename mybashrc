@@ -11,6 +11,9 @@ export CGO_ENABLED=0
 
 alias root='sudo -s'
 alias sb='source ~/.bashrc'
+# maven bash completion
+source ~/maven_completion.bash
+
 alias generate_ctags='source ~/config/gentags_cscope'
 alias q='exit'
 
@@ -40,3 +43,9 @@ alias gosrc='cd ~/go/src'
 # Docker
 # docker build -t [DOCKER_ACC]/[DOCKER_REPO]:[IMG_TAG] .
 # docker build -t gildong/hyperstorage:test1 .
+
+# imp_coldbrew_176
+alias 176_scp_jar='scp ~/git/imp_coldbrew/target/TmaxCloudPO-0.0.1-SNAPSHOT-svc.jar root@172.22.10.6:/root/proobject7/ProZone/application/servicegroup/master/prozone-svc.jar'
+alias 176_prozone_run='ssh root@172.22.10.6 bash /root/cmd/prozone_run.sh'
+alias 176_prozone_down='ssh root@172.22.10.6 bash /root/cmd/prozone_down.sh'
+alias 176_prozone_restart='ssh_prozone_down && ssh_prozone_run'
