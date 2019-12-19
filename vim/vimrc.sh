@@ -174,6 +174,7 @@ if ! grep -q "^call plug#begin('~/.vim/plugged')" ~/.vimrc; then
 	Plug 'nathanaelkane/vim-indent-guides' 
 	Plug 'vim-airline/vim-airline', {'do': 'sudo apt install fonts-powerline -y'}
 	Plug 'vim-airline/vim-airline-themes'
+	Plug 'Chiel92/vim-autoformat'
 	" Insert plugin here
 	call plug#end()
 	.
