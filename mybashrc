@@ -1,3 +1,5 @@
+#!/bin/bash
+
 case "$TERM" in
     xterm|xterm-color|*-256color) 
     	PS1='${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;31m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ';;
@@ -11,11 +13,17 @@ export CGO_ENABLED=0
 
 alias root='sudo -s'
 alias sb='source ~/.bashrc'
+
 # maven bash completion
-source ~/config/maven_completion.bash
+alias maven_completion='source ~/config/maven_completion.bash'
 
 alias generate_ctags='source ~/config/gentags_cscope'
 alias q='exit'
+
+# Bash auto completion
+[[ -x "$(command -v minikube)" ]] && source <(minikube completion bash)
+[[ -x "$(command -v kubectl)" ]] && source <(kubectl completion bash)
+
 
 alias ssh_101='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.101' #pw: root
 alias ssh_102='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.102' #pw: root
@@ -36,10 +44,6 @@ alias ssh_k8s_node-2='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 k8s@192
 alias ssh_k8s_node-3='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 k8s@192.168.0.93' #pw: root
 alias ssh_k8s_node-4='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 k8s@192.168.0.94' #pw: root
 
-alias k8s='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 k8s@192.168.0.101' #pw: k8s
-
-# tmp
-alias gosrc='cd ~/go/src'
 
 # Docker
 # docker build -t [DOCKER_ACC]/[DOCKER_REPO]:[IMG_TAG] .
