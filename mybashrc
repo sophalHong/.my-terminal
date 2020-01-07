@@ -15,7 +15,9 @@ alias root='sudo -s'
 alias sb='source ~/.bashrc'
 
 # maven bash completion
-alias maven_completion='source ~/config/maven_completion.bash'
+alias maven_completion='source ~/config/bash-completion/maven_completion.bash'
+# VirtualBox bash completion
+alias vb_completion='source ~/config/bash-completion/VBoxManage.bash'
 
 alias generate_ctags='source ~/config/gentags_cscope'
 alias q='exit'
