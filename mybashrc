@@ -18,6 +18,10 @@ alias sb='source ~/.bashrc'
 alias maven_completion='source ~/config/bash-completion/maven_completion.bash'
 # VirtualBox bash completion
 alias vb_completion='source ~/config/bash-completion/VBoxManage.bash'
+# Velero bash completion
+alias velero_completion='source <(velero completion bash)'
+# goto bash completion
+alias goto_completion='source ~/config/goto/goto.bash'
 
 alias generate_ctags='source ~/config/gentags_cscope'
 alias q='exit'
