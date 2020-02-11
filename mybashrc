@@ -5,6 +5,11 @@ case "$TERM" in
     	PS1='${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;31m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ';;
 esac
 
+# Golang Bash completion
+# go get -u github.com/posener/complete/gocomplete
+# gocomplete -install
+# gocomplete -uninstall
+
 # Golang env
 export GOPATH=~/go
 export GOBIN=~/go/bin
