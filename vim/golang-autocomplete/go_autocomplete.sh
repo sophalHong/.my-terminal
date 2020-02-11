@@ -254,8 +254,17 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 "============End of Coc.nvim=========
+
+"==========GoLint========= :Lint
+set rtp+=$GOPATH/src/golang.org/x/lint/misc/vim
+autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+"======Eng of GoLint======
 EOF
+
+# Install and update GoLint
+go get -u golang.org/x/lint/golint
 
 echo ""
 echo '"===========Coc.nvim default settings=========' >> ~/.vimrc
 echo "source $coc_vim_LOC" >> ~/.vimrc
+
