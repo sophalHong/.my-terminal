@@ -20,15 +20,15 @@ alias root='sudo -s'
 alias sb='source ~/.bashrc'
 
 # maven bash completion
-alias maven_completion='source ~/config/bash-completion/maven_completion.bash'
+alias maven_completion='source ~/.myEnv/bash-completion/maven_completion.bash'
 # VirtualBox bash completion
-alias vb_completion='source ~/config/bash-completion/VBoxManage.bash'
+alias vb_completion='source ~/.myEnv/bash-completion/VBoxManage.bash'
 # Velero bash completion
 alias velero_completion='source <(velero completion bash)'
 # goto bash completion
-alias goto_completion='source ~/config/goto/goto.bash'
+alias goto_completion='source ~/.myEnv/goto/goto.bash'
 
-alias generate_ctags='source ~/config/gentags_cscope'
+alias generate_ctags='source ~/.myEnv/others/gentags_cscope'
 alias q='exit'
 
 # Bash auto completion
