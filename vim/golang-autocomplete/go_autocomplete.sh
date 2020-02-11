@@ -1,9 +1,16 @@
 #!/bin/bash
-[ "$EUID" -ne 0 ] && echo "please run as root or sudo..." && exit
 
 if ! [ -x "$(command -v go)" ]; then
     echo "[ERROR] go is not installed !" && exit;
 fi
+
+# Install Golint (linter: analyze source code)
+go get -u golang.org/x/lint/golint
+
+# Install gocompletion (go bash completion)
+go get -u github.com/posener/complete/gocomplete
+gocomplete -install -y
+
 
 if ! [ -x "$(go env GOPATH)" ]; then
     echo "[ERROR] GOPATH not found";
@@ -260,9 +267,6 @@ set rtp+=$GOPATH/src/golang.org/x/lint/misc/vim
 autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 "======Eng of GoLint======
 EOF
-
-# Install and update GoLint
-go get -u golang.org/x/lint/golint
 
 echo ""
 echo '"===========Coc.nvim default settings=========' >> ~/.vimrc
