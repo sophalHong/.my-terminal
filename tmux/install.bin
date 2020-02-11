@@ -7,24 +7,26 @@ fi
 [ -f ~/.tmux.conf ] && mv ~/.tmux.conf ~/.tmux.conf_bak`date +%y%m%d_%H%M`
 [ -f ~/.tmux.conf.local ] && mv ~/.tmux.conf.local ~/.tmux.conf.local_bak`date +%y%m%d_%H%M`
 
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
 if [ "$1" == "link" ]; then
-	[ ! -f ./tmux.conf ] && 
+	[ ! -f "$DIR"/tmux.conf ] && 
 		echo "[ERROR] 'tmux.conf' not found!" && exit || 
-		ln -s -f `pwd`/tmux.conf ~/.tmux.conf && 
+		ln -s -f "$DIR"/tmux.conf ~/.tmux.conf && 
 		echo "[LINK] ~/.tmux.conf" && ls -l ~/.tmux.conf
 
-	[ ! -f ./tmux.conf.local ] && 
+	[ ! -f "$DIR"/tmux.conf.local ] && 
 		echo "[ERROR] 'tmux.conf.local' not found!" && exit || 
-		ln -s -f `pwd`/tmux.conf.local ~/.tmux.conf.local && 
+		ln -s -f "$DIR"/tmux.conf.local ~/.tmux.conf.local && 
 		echo "[LINK] ~/.tmux.conf.local" && ls -l ~/.tmux.conf.local
 else
-	[ ! -f ./tmux.conf ] && 
+	[ ! -f "$DIR"/tmux.conf ] && 
 		echo "[ERROR] 'tmux.conf' not found!" && exit || 
-		cp ./tmux.conf ~/.tmux.conf && 
+		cp "$DIR"/tmux.conf ~/.tmux.conf && 
 		echo "[COPY] ~/.tmux.conf" && ls -l ~/.tmux.conf
 
-	[ ! -f ./tmux.conf.local ] && 
+	[ ! -f "$DIR"/tmux.conf.local ] && 
 		echo "[ERROR] 'tmux.conf.local' not found!" && exit || 
-		cp ./tmux.conf.local ~/.tmux.conf.local && 
+		cp "$DIR"/tmux.conf.local ~/.tmux.conf.local && 
 		echo "[COPY] ~/.tmux.conf.local" && ls -l ~/.tmux.conf.local
 fi
