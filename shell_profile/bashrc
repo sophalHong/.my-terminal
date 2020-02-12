@@ -6,7 +6,7 @@ case "$TERM" in
 esac
 
 # Using Tmux as default when start bash
-[[ "$TMUX" = "" ]] && tmux
+#[[ "$TMUX" = "" ]] && tmux
 
 # Golang Bash completion
 # go get -u github.com/posener/complete/gocomplete
