@@ -26,7 +26,7 @@ alias maven_completion='source ~/.myEnv/bash-completion/maven_completion.bash'
 # VirtualBox bash completion
 alias vb_completion='source ~/.myEnv/bash-completion/VBoxManage.bash'
 # Velero bash completion
-alias velero_completion='source <(velero completion bash)'
+alias velero_completion='source <(velero completion zsh)'
 # goto bash completion
 alias goto_completion='source ~/.myEnv/goto/goto.bash'
 
