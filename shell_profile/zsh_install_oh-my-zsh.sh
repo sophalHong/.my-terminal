@@ -132,8 +132,8 @@ setup_zshrc() {
 	cp "$ZSH/templates/zshrc.zsh-template" ~/.zshrc
 	
 	# Sophal: Add my own default theme
-	DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-	cp "$DIR"/sophal.zsh-theme "$ZSH"/themes/
+	DIR="$(cd "$(dirname "{BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+	ln -s -f "$DIR"/sophal.zsh-theme "$ZSH"/themes/sophal.zsh-theme
 	sed -i '/^ZSH_THEME=/c\ZSH_THEME="sophal"' ~/.zshrc
 	sed -i "/^export ZSH=/c\export ZSH=\"${ZSH}\"" ~/.zshrc
 #
