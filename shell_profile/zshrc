@@ -18,6 +18,7 @@ export PATH=$PATH:/usr/local/go/bin:$GOBIN
 export CGO_ENABLED=0
 
 alias root='sudo -s'
+alias sophal='su - sophal'
 alias sb='source ~/.zshrc'
 
 # maven bash completion
