@@ -130,11 +130,18 @@ setup_zshrc() {
 	echo "${GREEN}Using the Oh My Zsh template file and adding it to ~/.zshrc.${RESET}"
 
 	cp "$ZSH/templates/zshrc.zsh-template" ~/.zshrc
-	sed "/^export ZSH=/ c\\
-export ZSH=\"$ZSH\"
-" ~/.zshrc > ~/.zshrc-omztemp
-	mv -f ~/.zshrc-omztemp ~/.zshrc
-
+	
+	# Sophal: Add my own default theme
+	DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+	cp "$DIR"/sophal.zsh-theme "$ZSH"/themes/
+	sed -i '/^ZSH_THEME=/c\ZSH_THEME="sophal"' ~/.zshrc
+	sed -i "/^export ZSH=/c\export ZSH=\"${ZSH}\"" ~/.zshrc
+#
+#	sed "/^export ZSH=/ c\\
+#export ZSH=\"$ZSH\"
+#" ~/.zshrc > ~/.zshrc-omztemp
+#	mv -f ~/.zshrc-omztemp ~/.zshrc
+#
 	echo
 }
 
@@ -262,10 +269,6 @@ main() {
 
 
 		Please look over the ~/.zshrc file to select plugins, themes, and options.
-
-		p.s. Follow us on https://twitter.com/ohmyzsh
-
-		p.p.s. Get stickers, shirts, and coffee mugs at https://shop.planetargon.com/collections/oh-my-zsh
 
 	EOF
 	printf "$RESET"
