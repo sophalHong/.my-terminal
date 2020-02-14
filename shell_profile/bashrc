@@ -87,3 +87,6 @@ alias ssh_152='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0
 alias ssh_153='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.153' #pw: root
 alias ssh_154='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.154' #pw: root
 alias ssh_155='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.155' #pw: root
+
+#export PS1='\[\033[0;32m\]\[\033[0m\033[0;32m\]\u\[\033[0;36m\] @ \[\033[0;36m\]\h \w\[\033[0;32m\] $(__git_ps1)\n\[\033[0;32m\]└─\[\033[0m\033[0;32m\] $\[\033[0m\033[0;32m\] ▶\[\033[0m\] '
+
