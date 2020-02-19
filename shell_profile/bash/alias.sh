@@ -19,19 +19,24 @@ export CGO_ENABLED=0
 
 alias root='sudo -s'
 alias sophal='su - sophal'
-alias sb='source ~/.zshrc'
+alias sb='source ~/.bashrc'
 
 # maven bash completion
 alias maven_completion='source ~/.myEnv/bash-completion/maven_completion.bash'
 # VirtualBox bash completion
 alias vb_completion='source ~/.myEnv/bash-completion/VBoxManage.bash'
 # Velero bash completion
-alias velero_completion='source <(velero completion zsh)'
+alias velero_completion='source <(velero completion bash)'
 # goto bash completion
 alias goto_completion='source ~/.myEnv/goto/goto.bash'
 
 alias generate_ctags='source ~/.myEnv/others/gentags_cscope'
 alias q='exit'
+
+# Bash auto completion
+[[ -x "$(command -v minikube)" ]] && source <(minikube completion bash)
+[[ -x "$(command -v kubectl)" ]] && source <(kubectl completion bash)
+
 
 alias ssh_101='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.101' #pw: root
 alias ssh_102='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.102' #pw: root
@@ -77,3 +82,6 @@ alias ssh_152='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0
 alias ssh_153='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.153' #pw: root
 alias ssh_154='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.154' #pw: root
 alias ssh_155='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.155' #pw: root
+
+#export PS1='\[\033[0;32m\]\[\033[0m\033[0;32m\]\u\[\033[0;36m\] @ \[\033[0;36m\]\h \w\[\033[0;32m\] $(__git_ps1)\n\[\033[0;32m\]└─\[\033[0m\033[0;32m\] $\[\033[0m\033[0;32m\] ▶\[\033[0m\] '
+

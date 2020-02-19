@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+source $DIR/colours.theme.sh
+source $DIR/base.theme.sh
+source $DIR/sophal.theme.sh
+source $DIR/alias.sh
+source $DIR/env.sh
+source $DIR/completion.sh
