@@ -1,8 +1,8 @@
 #!/bin/bash
 
-[[ "$MY_CLOCK" == "Running" ]] && return
+[[ "$CLOCK_BASH" == "Running" ]] && return
 
-export MY_CLOCK='Running'
+export CLOCK_BASH='Running'
 while sleep 1
 do
 	tput sc
