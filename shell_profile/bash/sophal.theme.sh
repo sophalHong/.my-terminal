@@ -95,7 +95,7 @@ ____brainy_bottom() {
 ##############
 
 ___brainy_prompt_user_info() {
-	color=$bold_blue
+	color=$bold_cyan
 	if [ "${THEME_SHOW_SUDO}" == "true" ]; then
 		if [ $(sudo -n id -u 2>&1 | grep 0) ]; then
 			color=$bold_red
