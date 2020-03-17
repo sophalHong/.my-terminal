@@ -21,6 +21,8 @@ alias root='sudo -s'
 alias sophal='su - sophal'
 alias sb='source ~/.bashrc'
 
+alias chk_port_ltn='sudo lsof -i -P -n | grep LISTEN'
+
 # maven bash completion
 alias maven_completion='source ~/.myEnv/bash-completion/maven_completion.bash'
 # VirtualBox bash completion
@@ -29,7 +31,7 @@ alias vb_completion='source ~/.myEnv/bash-completion/VBoxManage.bash'
 alias velero_completion='source <(velero completion bash)'
 # goto bash completion
 alias goto_completion='source ~/.myEnv/goto/goto.bash'
-
+# generate cscope tags
 alias generate_ctags='source ~/.myEnv/others/gentags_cscope'
 alias q='exit'
 
