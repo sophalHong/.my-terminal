@@ -8,3 +8,6 @@
 
 [[ -x "$(command -v kctx)" ]] && source $MY_BASH_DIR/completions/kubectx.bash
 [[ -x "$(command -v kns)" ]] && source $MY_BASH_DIR/completions/kubens.bash
+
+[[ -x "$(command -v VBoxManage)" ]] && source $MY_BASH_DIR/completions/VBoxManage.bash
+[[ -x "$(command -v goto)" ]] && source $MY_BASH_DIR/completions/goto.bash
