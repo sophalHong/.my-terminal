@@ -21,6 +21,8 @@ alias root='sudo -s'
 alias sophal='su - sophal'
 alias sb='source ~/.bashrc'
 
+alias chk_port_ltn='sudo lsof -i -P -n | grep LISTEN'
+
 # maven bash completion
 alias maven_completion='source ~/.myEnv/bash-completion/maven_completion.bash'
 alias generate_ctags='source ~/.myEnv/others/gentags_cscope'
