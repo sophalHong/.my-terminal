@@ -21,15 +21,10 @@ alias root='sudo -s'
 alias sophal='su - sophal'
 alias sb='source ~/.bashrc'
 
+alias chk_port_ltn='sudo lsof -i -P -n | grep LISTEN'
+
 # maven bash completion
 alias maven_completion='source ~/.myEnv/bash-completion/maven_completion.bash'
-# VirtualBox bash completion
-alias vb_completion='source ~/.myEnv/bash-completion/VBoxManage.bash'
-# Velero bash completion
-alias velero_completion='source <(velero completion bash)'
-# goto bash completion
-alias goto_completion='source ~/.myEnv/goto/goto.bash'
-
 alias generate_ctags='source ~/.myEnv/others/gentags_cscope'
 alias q='exit'
 
@@ -46,7 +41,6 @@ alias ssh_pdc_master='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@22
 alias ssh_QA='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@172.22.7.2' #pw: tmax@23
 alias ssh_gitlab-runner='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 gitlab-runner@172.22.4.105' #pw: tmax@34
 
-
 # Docker
 # docker build -t [DOCKER_ACC]/[DOCKER_REPO]:[IMG_TAG] .
 # docker build -t gildong/hyperstorage:test1 .
@@ -58,3 +52,4 @@ alias 176_prozone_run='ssh root@172.22.10.6 bash /root/cmd/prozone_run.sh'
 alias 176_prozone_down='ssh root@172.22.10.6 bash /root/cmd/prozone_down.sh'
 alias 176_prozone_restart='176_prozone_down && 176_prozone_run'
 
+#export PS1='\[\033[0;32m\]\[\033[0m\033[0;32m\]\u\[\033[0;36m\] @ \[\033[0;36m\]\h \w\[\033[0;32m\] $(__git_ps1)\n\[\033[0;32m\]└─\[\033[0m\033[0;32m\] $\[\033[0m\033[0;32m\] ▶\[\033[0m\] '
