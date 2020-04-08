@@ -20,6 +20,7 @@ export PATH=$PATH:$GOROOT/bin:$GOBIN
 alias root='sudo -s'
 alias sophal='su - sophal'
 alias sb='source ~/.bashrc'
+alias vi='vim'
 
 alias chk_port_ltn='sudo lsof -i -P -n | grep LISTEN'
 
