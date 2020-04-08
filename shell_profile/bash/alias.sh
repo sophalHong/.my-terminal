@@ -12,10 +12,10 @@
 # gocomplete -uninstall
 
 # Golang env
+export GOROOT=/usr/local/go
 export GOPATH=~/go
 export GOBIN=~/go/bin
-export PATH=$PATH:/usr/local/go/bin:$GOBIN
-export CGO_ENABLED=0
+export PATH=$PATH:$GOROOT/bin:$GOBIN
 
 alias root='sudo -s'
 alias sophal='su - sophal'
