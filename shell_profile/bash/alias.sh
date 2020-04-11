@@ -13,8 +13,8 @@
 
 # Golang env
 export GOROOT=/usr/local/go
-export GOPATH=~/go
-export GOBIN=~/go/bin
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin:$GOBIN
 
 alias root='sudo -s'
@@ -53,3 +53,8 @@ alias 176_prozone_down='ssh root@172.22.10.6 bash /root/cmd/prozone_down.sh'
 alias 176_prozone_restart='176_prozone_down && 176_prozone_run'
 
 #export PS1='\[\033[0;32m\]\[\033[0m\033[0;32m\]\u\[\033[0;36m\] @ \[\033[0;36m\]\h \w\[\033[0;32m\] $(__git_ps1)\n\[\033[0;32m\]└─\[\033[0m\033[0;32m\] $\[\033[0m\033[0;32m\] ▶\[\033[0m\] '
+# .bashrc
+
+alias ssh_11='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@10.0.2.11' #pw: root
+alias ssh_12='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@10.0.2.12' #pw: root
+alias ssh_13='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@10.0.2.13' #pw: root
