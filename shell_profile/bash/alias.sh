@@ -32,6 +32,7 @@ alias ssh_101='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0
 alias ssh_102='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.102' #pw: root
 alias ssh_103='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.103' #pw: root
 alias ssh_tos='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.0.105' #pw: root
+alias ssh_dev='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@192.168.11.127' #pw: root
 
 alias ssh_ck-ftp='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 ck-ftp@192.168.1.150' #pw: ck-ftp
 alias ssh_tmax-cloud-ssh='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 root@175.195.163.11' #pw: tmax@cloud
