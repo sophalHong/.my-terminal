@@ -18,6 +18,7 @@ export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin:$GOBIN
 
 alias root='sudo -s'
+alias sophal='su - sophal'
 alias sb='source ~/.bashrc'
 alias vi='vim'
 
