@@ -286,3 +286,18 @@ set -g mode-keys vi
 
 # move status line to top
 #set -g status-position top
+
+# split current window horizontally
+bind - split-window -v
+# split current window vertically
+bind | split-window -h
+
+# move current window left-right
+bind -r C-j swap-window -t -1
+bind -r C-k swap-window -t +1
+#bind-key -n C-S-Left swap-window -t -1
+#bind-key -n C-S-Right swap-window -t +1
+
+# Synchronize panes
+unbind =
+bind = set -g synchronize-panes
