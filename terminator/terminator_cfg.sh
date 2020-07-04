@@ -1,11 +1,11 @@
 #!/bin/bash
 if ! [ -x "$(command -v terminator)" ]; then
-    echo "Installing vim..." >&2
-	sudo apt update;
+    echo "Installing terminator..." >&2
+    sudo apt update;
     sudo apt install -y terminator;
 fi
 
-# Backup ~/.vim and ~/.vimrc
+# Backup
 DIR=~/.config/terminator
 CFG=$DIR/config
 ! [ -d $DIR ] && mkdir -p $DIR
@@ -44,8 +44,8 @@ cat > $CFG << EOF
   resize_up = <Shift><Alt>i
   rotate_ccw = <Alt>r
   rotate_cw = <Primary><Shift>r
-  split_horiz = <Alt>o
-  split_vert = <Alt>p
+  split_horiz = <Alt>h
+  split_vert = <Alt>semicolon
   switch_to_tab_1 = <Alt>1
   switch_to_tab_10 = None
   switch_to_tab_2 = <Alt>2
