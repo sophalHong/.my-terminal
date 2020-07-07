@@ -156,7 +156,7 @@ EOF
 # Install vim-plug
 if ! [ -x "$(command -v curl)" ]; then
     echo "Installing curl..." >&2
-    sudo apt install -y curl;
+    sudo yum install -y curl;
 fi
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -170,9 +170,9 @@ if ! grep -q "^call plug#begin('~/.vim/plugged')" ~/.vimrc; then
 	1i
 	call plug#begin('~/.vim/plugged')
 	Plug 'scrooloose/nerdtree'
-	Plug 'majutsushi/tagbar', {'do': 'sudo yum install exuberant-ctags -y'}
+	Plug 'majutsushi/tagbar', {'do': 'sudo yum install ctags -y'}
 	Plug 'nathanaelkane/vim-indent-guides' 
-	Plug 'vim-airline/vim-airline', {'do': 'sudo yum install fonts-powerline -y'}
+	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'Chiel92/vim-autoformat'
 	" Insert plugin here
