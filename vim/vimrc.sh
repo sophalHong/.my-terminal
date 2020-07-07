@@ -186,3 +186,12 @@ if ! grep -q "^call plug#begin('~/.vim/plugged')" ~/.vimrc; then
 fi
 
 echo "Updated ~/.vimrc";
+
+echo "Add automatically adjust 'shiftwidth' and 'expandtab'"
+mkdir -p ~/.vim/pack/tpope/start
+cd ~/.vim/pack/tpope/start
+git clone https://tpope.io/vim/sleuth.git
+vim -u NONE -c "helptags sleuth/doc" -c q
+echo 'let g:sleuth_automatic = 0' >> ~/.vimrc
+
+echo "Done!"
