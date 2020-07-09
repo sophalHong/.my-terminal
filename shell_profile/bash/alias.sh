@@ -21,7 +21,7 @@ alias root='sudo -i'
 alias sophal='su - sophal'
 alias sb='source ~/.bashrc'
 alias vi='vim'
-alias ll='ls -alF --color=auto'
+alias ll='ls -alhF --color=auto'
 
 alias chk_port_ltn='sudo lsof -i -P -n | grep LISTEN'
 
