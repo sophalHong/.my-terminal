@@ -11,12 +11,6 @@
 # gocomplete -install
 # gocomplete -uninstall
 
-# Golang env
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin:$GOBIN
-
 alias root='sudo -i'
 alias sophal='su - sophal'
 alias sb='source ~/.bashrc'
