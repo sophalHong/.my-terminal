@@ -102,7 +102,8 @@ ___brainy_prompt_user_info() {
 		fi
 	fi
 	box="[|]"
-	info="\u${bold_white}@${bold_green}\H"
+	host_color=${host_color:-"${bold_green}"}
+	info="\u${bold_white}@${host_color}\H"
 	if [ -n "${SSH_CLIENT}" ]; then
 		printf "%s|%s|%s|%s:" "${color}" "${info}" "${bold_white}" "${box}"
 	else
@@ -114,7 +115,7 @@ ___brainy_prompt_dir() {
 	color=$bold_blue
 	#box="[|]"
 	info="\w"
-	printf "%s|%s|%s" "${color}" "${info}"
+	printf "%s|%s" "${color}" "${info}"
 	#printf "%s|%s|%s|%s" "${color}" "${info}" "${bold_white}" "${box}"
 }
 

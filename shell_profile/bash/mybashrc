@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-case "$TERM" in
-    xterm|xterm-color|*-256color)
-        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;31m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ';;
-esac
+#case "$TERM" in
+#    xterm|xterm-color|*-256color)
+#        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;31m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ';;
+#esac
 
 export MY_BASH_DIR="$DIR"
 
 source $DIR/colours.theme.sh
 source $DIR/base.theme.sh
+#host_color=$bold_blue
 source $DIR/sophal.theme.sh
 source $DIR/alias.sh
 source $DIR/env.sh
