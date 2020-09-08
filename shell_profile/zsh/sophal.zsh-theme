@@ -1,8 +1,7 @@
 # AVIT ZSH Theme
 #«»±˖˗‑‐‒ ━ ✚‐↔←↑↓→↭⇎⇔⋆━◂▸◄►◆☀★☗☊✔✖❮❯⚑⚙ ⚡ 
 
-PROMPT='
-╭─$(_user_host)${_current_dir} $(git_prompt_info) $(git_prompt_status) $(_ruby_version)
+PROMPT='╭─$(_user_host)${_current_dir} $(git_prompt_info) $(git_prompt_status) $(_ruby_version)
 ╰─%{$fg[$CARETCOLOR]%}➤%{$resetcolor%} '
 
 PROMPT2='%{$fg[$CARETCOLOR]%}◀%{$reset_color%} '
