@@ -5,6 +5,8 @@
 [[ -x "$(command -v kind)" ]] && source <(kind completion bash)
 [[ -x "$(command -v kubectl)" ]] && source <(kubectl completion bash)
 [[ -x "$(command -v velero)" ]] && source <(velero completion bash)
+[[ -x "$(command -v argo)" ]] && source <(argo completion bash)
+[[ -x "$(command -v k3d)" ]] && source <(k3d completion bash)
 [[ -x "$(command -v helm)" ]] && source <(helm completion bash)
 
 [[ -x "$(command -v kctx)" ]] && source $MY_BASH_DIR/completions/kubectx.bash
