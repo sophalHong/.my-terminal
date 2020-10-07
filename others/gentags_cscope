@@ -33,3 +33,11 @@ export CSCOPE_DB="$CSCOPE_DIR/cscope.out"
 #CSCOPE_DB=$PWD/cscope.out
 #export CSCOPE_DB
 echo "Exported CSCOPE_DB to: '$CSCOPE_DB'"
+
+
+# Generate tags
+if ! [ -x "$(command -v ctags)" ]; then
+    echo "Installing ctags..." >&2
+    sudo apt install -y exuberant-ctags;
+fi
+ctags -R .
