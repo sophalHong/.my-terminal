@@ -101,6 +101,7 @@ nnoremap <A-9> 9gt
 "Plug 'bundle/YCM-Generator', { 'branch': 'stable'}
 "Plug 'fatih/vim-go' , { 'do': ':GoInstallBinaries' }
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 "Plug 'scrooloose/nerdtree'
 autocmd VimEnter * if exists(":NERDTreeToggle") | exe "map <C-@> :NERDTreeToggle<CR>" | endif
