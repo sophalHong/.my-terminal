@@ -1,6 +1,7 @@
 case `echo ${SHELL} | sed 's:.*/::'` in
 	bash)
 		echo "source `pwd`/shell_profile/bash/mybashrc" >> $HOME/.bashrc
+		source $HOME/.bashrc
 		;;
 	zsh)
 		echo "TODO - zshrc"

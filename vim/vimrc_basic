@@ -1,15 +1,3 @@
-#!/bin/bash
-if ! [ -x "$(command -v vim)" ]; then
-    echo "Installing vim..." >&2
-    sudo apt install -y vim;
-fi
-
-# Backup ~/.vim and ~/.vimrc
-[ -d ~/.vim ] && mv ~/.vim ~/.vim_bak`date +%y%m%d_%H%M`
-[ -f ~/.vimrc ] && mv ~/.vimrc ~/.vimrc_bak`date +%y%m%d_%H%M`
-
-mkdir ~/.vim
-cat > ~/.vimrc << EOF
 "==================Default setting===================
 colorscheme peachpuff   " awesome colorscheme
 "set background=dark
@@ -101,13 +89,6 @@ nnoremap <A-9> 9gt
 "Plug 'bundle/YCM-Generator', { 'branch': 'stable'}
 "Plug 'fatih/vim-go' , { 'do': ':GoInstallBinaries' }
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-
-"Plug 'scrooloose/nerdtree'
-autocmd VimEnter * if exists(":NERDTreeToggle") | exe "map <C-@> :NERDTreeToggle<CR>" | endif
-
-"Plug 'majutsushi/tagbar'
-autocmd VimEnter * if exists(":TagbarToggle") | exe	"nnoremap <Space> :TagbarToggle<CR>" | endif
 
 "Plug 'nathanaelkane/vim-indent-guides' 
 autocmd VimEnter * if exists(":IndentGuidesToggle") | exe "map <c-i> :IndentGuidesToggle<CR>" | endif
@@ -145,53 +126,10 @@ function! LoadCscope()
         exe "cs add " . db . " " . path
         set cscopeverbose
         " else add the database pointed to by environment variable
-    elseif \$CSCOPE_DB != ""
-        cs add \$CSCOPE_DB
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
     endif
 endfunction
 au BufEnter /* call LoadCscope()
 "==================================
 
-EOF
-
-# Install vim-plug
-if ! [ -x "$(command -v curl)" ]; then
-    echo "Installing curl..." >&2
-    sudo apt install -y curl;
-fi
-if [ ! -f ~/.vim/autoload/plug.vim ]; then
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-
-# Add plug function into ~/.vimrc
-if ! grep -q "^call plug#begin('~/.vim/plugged')" ~/.vimrc; then
-	ed --quiet ~/.vimrc <<-END
-	1i
-	call plug#begin('~/.vim/plugged')
-	Plug 'scrooloose/nerdtree'
-	Plug 'majutsushi/tagbar', {'do': 'sudo apt install exuberant-ctags -y'}
-	Plug 'nathanaelkane/vim-indent-guides' 
-	Plug 'vim-airline/vim-airline', {'do': 'sudo apt install fonts-powerline -y'}
-	Plug 'vim-airline/vim-airline-themes'
-	Plug 'Chiel92/vim-autoformat'
-	" Insert plugin here
-	call plug#end()
-	.
-	w
-	q
-	END
-
-	vim +slient +VimEnter +PlugInstall +qall
-fi
-
-echo "Updated ~/.vimrc";
-
-echo "Add automatically adjust 'shiftwidth' and 'expandtab'"
-mkdir -p ~/.vim/pack/tpope/start
-cd ~/.vim/pack/tpope/start
-git clone https://tpope.io/vim/sleuth.git
-vim -u NONE -c "helptags sleuth/doc" -c q
-echo 'let g:sleuth_automatic = 0' >> ~/.vimrc
-
-echo "Done!"

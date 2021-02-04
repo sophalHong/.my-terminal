@@ -3,9 +3,11 @@ SHELL := /usr/bin/env bash
 
 # Set Makefile directory in variable for referencing other files
 MFILECWD = $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
-PROFILE_DIR ?= $(MFILECWD)shell_profile
+BASHRC ?= $(MFILECWD)shell_profile/bash/mybashrc
+ZSHRC ?= $(MFILECWD)shell_profile/zsh/mybashrc
 TMUX_DIR ?= $(MFILECWD)tmux
 VIM_DIR ?= $(MFILECWD)vim
+VIMRC ?= $(HOME)/.vimrc
 
 APT ?= $(shell command -v apt)
 YUM ?= $(shell command -v yum)
@@ -13,28 +15,83 @@ YUM ?= $(shell command -v yum)
 INSTALLER := $(if $(APT),$(APT),$(YUM))
 
 profile: ## Configure my profile
-	[ -d $(HOME)/.bashrc ] && \
-		echo "source $(PROFILE_DIR)/bash/mybashrc" >> $(HOME)/.bashrc || \
-		echo "'$(HOME)/.bashrc' NOT found"
+ifeq (,$(wildcard $(BASHRC)))
+	$(error `$(BASHRC)` NOT FOUND)
+endif
+ifneq (,$(wildcard $(HOME)/.bashrc))
+	@grep -q $(BASHRC) $(HOME)/.bashrc && \
+		echo "'$(BASHRC)' is already added to '$(HOME)/.bashrc'" || \
+		echo "source $(BASHRC)" >> $(HOME)/.bashrc;
+	$(info Execute: 'source $(HOME)/.bashrc' to activate my profile)
+else
+	$(error `$(HOME)/.bashrc` file does NOT exist)
+endif
 
 tmux: ## Setup and configure tmux
-	command -v tmux &> /dev/null || sudo $(INSTALLER) install -y tmux
-	[ -f $(HOME)/.tmux.conf ] && \
-		mv $(HOME)/.tmux.conf $(HOME)/.tmux.conf_bak`date +%y%m%d_%H%M`
-	[ -f $(HOME)/.tmux.conf.local ] && \
-		mv $(HOME)/.tmux.conf.local $(HOME)/.tmux.conf.local_bak`date +%y%m%d_%H%M`
-	cp -v $(TMUX_DIR)/tmux.conf $(HOME).tmux.conf
-	cp -v $(TMUX_DIR)/tmux.conf.local $(HOME).tmux.conf.local
+	@command -v tmux &> /dev/null || sudo $(INSTALLER) install -y tmux
+ifneq (,$(wildcard $(HOME)/.tmux.conf))
+	@mv $(HOME)/.tmux.conf $(HOME)/.tmux.conf_bak`date +%Y%m%d_%H%M`
+endif
+ifneq (,$(wildcard $(HOME)/.tmux.conf.local))
+	@mv $(HOME)/.tmux.conf.local $(HOME)/.tmux.conf.local_bak`date +%Y%m%d_%H%M`
+endif
+	@cp -v $(TMUX_DIR)/tmux.conf $(HOME)/.tmux.conf
+	@cp -v $(TMUX_DIR)/tmux.conf.local $(HOME)/.tmux.conf.local
 
-vim: ## Setup and configure vim
-	command -v vim &> /dev/null || sudo $(INSTALLER) install -y vim
-	[ -d $(HOME)/.vim ] && \
-		mv $(HOME)/.vim $(HOME)/.vim_bak`date +%y%m%d_%H%M`
-	[ -f $(HOME)/.vimrc ] && \
-		mv $(HOME)/.vimrc $(HOME)/.vimrc_bak`date +%y%m%d_%H%M`
-	mkdir -p $(HOME)/.vim
-	cp -v $(VIM_DIR)/vimrc $(HOME)/.vimrc
+vimrc: ## Setup and configure vim
+	@command -v vim &> /dev/null || sudo $(INSTALLER) install -y vim
+ifneq (,$(wildcard $(HOME)/.vim/.*))
+	@mv $(HOME)/.vim $(HOME)/.vim_bak`date +%Y%m%d_%H%M`
+endif
+ifneq (,$(wildcard $(HOME)/.vimrc))
+	@mv $(HOME)/.vimrc $(HOME)/.vimrc_bak`date +%Y%m%d_%H%M`
+endif
+	@mkdir -p $(HOME)/.vim
+	@cp -v $(VIM_DIR)/vimrc_basic $(VIMRC)
 
+vim-plug: ## Get and install vim-plug
+	@command -v curl &> /dev/null || sudo $(INSTALLER) install -y curl
+	@curl -s -fLo $(HOME)/.vim/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	@command -v sed &> /dev/null || sudo $(INSTALLER) install -y sed
+	@grep -q 'plug#begin\|plug#begin' $(VIMRC) || \
+		sed -i "1icall plug#begin('~/.vim/plugged')\ncall plug#end()\n" $(VIMRC)
+
+vim-install-plugin: vim-plug ## Add nerdtree vim-plug
+ifndef PLUGIN
+	$(error Pluging 'PLUGIN=<name>' is NOT provided!)
+endif
+	@command -v sed &> /dev/null || sudo $(INSTALLER) install -y sed
+	@grep -q 'plug#begin\|plug#begin' $(VIMRC) || make vim-plug --no-print-directory;
+	$(eval LINE := $(shell awk '/call plug#begin/{print NR; exit}' $(VIMRC)))
+	@if grep -q '$(PLUGIN)' $(VIMRC); then \
+		echo "[INFO] vim plugin '$(PLUGIN)' is already installed!"; \
+	else \
+		sed -i "$(LINE) a Plug '$(PLUGIN)'" $(VIMRC); \
+		vim +slient +VimEnter +PlugInstall +qall; \
+		echo "[INFO] vim plugin '$(PLUGIN)' is successfully installed!"; \
+	fi
+
+vim-nerdtree: ## Install 'nerdtree' vim-plug
+	$(eval NAME := preservim/nerdtree)
+	$(eval MAPPING := Mapping Ctrl+i to NERDTreeToggle)
+	@PLUGIN=$(NAME) $(MAKE) vim-install-plugin --no-print-directory
+	@if ! grep -q '$(MAPPING)' $(VIMRC); then \
+		echo "[INFO] $(MAPPING)"; \
+		echo -e '\n"$(MAPPING)' >> $(VIMRC); \
+		echo 'autocmd VimEnter * if exists(":NERDTreeToggle") | exe "map <C-i> :NERDTreeToggle<CR>" | endif' >> $(VIMRC); \
+	fi
+
+vim-tagbar: ## Install 'tagbar' vim-plug
+	@command -v ctags-exuberant &> /dev/null || sudo $(INSTALLER) install exuberant-ctags -y
+	$(eval NAME := preservim/tagbar)
+	$(eval MAPPING := Mapping <space> to TagbarToggle)
+	@PLUGIN=$(NAME) $(MAKE) vim-install-plugin --no-print-directory
+	@if ! grep -q '$(MAPPING)' $(VIMRC); then \
+		echo "[INFO] $(MAPPING)"; \
+		echo -e '\n"$(MAPPING)' >> $(VIMRC); \
+		echo 'autocmd VimEnter * if exists(":TagbarToggle") | exe "nnoremap <Space> :TagbarToggle<CR>" | endif' >> $(VIMRC); \
+	fi
 
 help: ## Show this help menu.
 	@echo "Usage: make [TARGET ...]"
@@ -43,4 +100,4 @@ help: ## Show this help menu.
 
 .DEFAULT_GOAL := help
 .EXPORT_ALL_VARIABLES:
-.PHONY: tmux help
+.PHONY: help profile tmux vim vim-plug
