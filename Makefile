@@ -51,22 +51,27 @@ endif
 
 vim-plug: ## Get and install vim-plug
 	@command -v curl &> /dev/null || sudo $(INSTALLER) install -y curl
-	@curl -s -fLo $(HOME)/.vim/autoload/plug.vim --create-dirs \
+	$(eval PLUG-VIM := $(HOME)/.vim/autoload/plug.vim)
+	@test -f $(PLUG-VIM) || curl -fLo $(PLUG-VIM) --create-dirs \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	@command -v sed &> /dev/null || sudo $(INSTALLER) install -y sed
-	@grep -q 'plug#begin\|plug#begin' $(VIMRC) || \
+	@grep -q '^call plug#begin' $(VIMRC) || \
 		sed -i "1icall plug#begin('~/.vim/plugged')\ncall plug#end()\n" $(VIMRC)
 
 vim-install-plugin: vim-plug ## Add nerdtree vim-plug
 ifndef PLUGIN
 	$(error Pluging 'PLUGIN=<name>' is NOT provided!)
 endif
-	@command -v sed &> /dev/null || sudo $(INSTALLER) install -y sed
-	@grep -q 'plug#begin\|plug#begin' $(VIMRC) || make vim-plug --no-print-directory;
-	$(eval LINE := $(shell awk '/call plug#begin/{print NR; exit}' $(VIMRC)))
-	@if grep -q '$(PLUGIN)' $(VIMRC); then \
+	@grep -q '^call plug#begin' $(VIMRC) || $(MAKE) vim-plug;
+	$(eval LINE := $(shell awk '/^call plug#begin/{print NR; exit}' $(VIMRC)))
+	@if [ "$(LINE)" == "" ]; then \
+		echo "[ERROR] Cannot get find call plug\#being() function in '$(VIMRC)'"; \
+		exit 1; \
+	fi
+	@if grep -q "^Plug '$(PLUGIN)'" $(VIMRC); then \
 		echo "[INFO] vim plugin '$(PLUGIN)' is already installed!"; \
 	else \
+		command -v sed &> /dev/null || sudo $(INSTALLER) install -y sed; \
 		sed -i "$(LINE) a Plug '$(PLUGIN)'" $(VIMRC); \
 		vim +slient +VimEnter +PlugInstall +qall; \
 		echo "[INFO] vim plugin '$(PLUGIN)' is successfully installed!"; \
