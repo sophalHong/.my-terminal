@@ -79,24 +79,97 @@ endif
 
 vim-nerdtree: ## Install 'nerdtree' vim-plug
 	$(eval NAME := preservim/nerdtree)
-	$(eval MAPPING := Mapping Ctrl+i to NERDTreeToggle)
+	$(eval MAPPING := Mapping <Tab> to :NERDTreeToggle<CR>)
 	@PLUGIN=$(NAME) $(MAKE) vim-install-plugin --no-print-directory
 	@if ! grep -q '$(MAPPING)' $(VIMRC); then \
 		echo "[INFO] $(MAPPING)"; \
 		echo -e '\n"$(MAPPING)' >> $(VIMRC); \
-		echo 'autocmd VimEnter * if exists(":NERDTreeToggle") | exe "map <C-i> :NERDTreeToggle<CR>" | endif' >> $(VIMRC); \
+		echo 'autocmd VimEnter * if exists(":NERDTreeToggle") | exe "map <Tab> :NERDTreeToggle<CR>" | endif' >> $(VIMRC); \
 	fi
 
 vim-tagbar: ## Install 'tagbar' vim-plug
 	@command -v ctags-exuberant &> /dev/null || sudo $(INSTALLER) install exuberant-ctags -y
 	$(eval NAME := preservim/tagbar)
-	$(eval MAPPING := Mapping <space> to TagbarToggle)
+	$(eval MAPPING := Mapping <space> to :TagbarToggle<CR>)
 	@PLUGIN=$(NAME) $(MAKE) vim-install-plugin --no-print-directory
 	@if ! grep -q '$(MAPPING)' $(VIMRC); then \
 		echo "[INFO] $(MAPPING)"; \
 		echo -e '\n"$(MAPPING)' >> $(VIMRC); \
 		echo 'autocmd VimEnter * if exists(":TagbarToggle") | exe "nnoremap <Space> :TagbarToggle<CR>" | endif' >> $(VIMRC); \
 	fi
+
+vim-indent: ## Install 'Indent' vim-plug
+	$(eval NAME := nathanaelkane/vim-indent-guides)
+	$(eval MAPPING := Mapping Ctrl+n to :IndentGuidesToggle<CR>)
+	@PLUGIN=$(NAME) $(MAKE) vim-install-plugin --no-print-directory
+	@if ! grep -q '$(MAPPING)' $(VIMRC); then \
+		echo "[INFO] $(MAPPING)"; \
+		echo -e '\n"$(MAPPING)' >> $(VIMRC); \
+		echo 'autocmd VimEnter * if exists(":IndentGuidesToggle") | exe "map <c-n> :IndentGuidesToggle<CR>" | endif' >> $(VIMRC); \
+		echo 'let g:indent_guides_enable_on_vim_startup = 0' >> $(VIMRC); \
+		echo 'let g:indent_guides_guide_size = 1' >> $(VIMRC); \
+		echo 'let g:indent_guides_auto_colors = 0' >> $(VIMRC); \
+		echo 'autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=235' >> $(VIMRC); \
+		echo 'autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=237' >> $(VIMRC); \
+	fi
+
+vim-airline: ## Install 'Airline' and 'Airline-themes' vim-plug
+	@sudo $(INSTALLER) install -y fonts-powerline &> /dev/null || \
+		sudo $(INSTALLER) install -y powerline-fonts &> /dev/null || \
+		{ git clone https://github.com/powerline/fonts.git --depth=1; \
+		./fonts/install.sh; rm -rf fonts; }
+	$(eval NAME := vim-airline/vim-airline)
+	$(eval THEME := vim-airline/vim-airline-themes)
+	@PLUGIN=$(NAME) $(MAKE) vim-install-plugin --no-print-directory
+	@PLUGIN=$(THEME) $(MAKE) vim-install-plugin --no-print-directory
+	$(eval CONFIG := Setting default airline customized configuration)
+	@if ! grep -q '$(CONFIG)' $(VIMRC); then \
+		echo "[INFO] $(CONFIG)"; \
+		echo -e '\n"$(CONFIG)' >> $(VIMRC); \
+		echo "let g:airline#extensions#tabline#enabled = 1" >> $(VIMRC); \
+		echo "let g:airline#extensions#tabline#left_sep = ' '" >> $(VIMRC); \
+		echo "let g:airline#extensions#tabline#left_alt_sep = '|'" >> $(VIMRC); \
+		echo "let g:airline_left_sep = ''" >> $(VIMRC); \
+		echo "let g:airline_right_sep = ''" >> $(VIMRC); \
+	fi
+
+vim-install: vim-plug ## Add nerdtree vim-plug
+ifndef PLUGIN
+	$(error Pluging 'PLUGIN=<name>' is NOT provided!)
+endif
+	@grep -q '^call plug#begin' $(VIMRC) || $(MAKE) vim-plug;
+	$(eval LINE := $(shell awk '/^call plug#begin/{print NR; exit}' $(VIMRC)))
+	@if [ "$(LINE)" == "" ]; then \
+		echo "[ERROR] Cannot get find call plug\#being() function in '$(VIMRC)'"; \
+		exit 1; \
+	fi
+	@if grep -q "^Plug '$(PLUGIN)'" $(VIMRC); then \
+		echo "[INFO] vim plugin '$(PLUGIN)' is already installed!"; \
+	else \
+		command -v sed &> /dev/null || sudo $(INSTALLER) install -y sed; \
+		sed -i "$(LINE) a Plug '$(PLUGIN)'" $(VIMRC); \
+		vim +slient +VimEnter +PlugInstall +qall; \
+		echo "[INFO] vim plugin '$(PLUGIN)' is successfully installed!"; \
+	fi
+	
+vim-markdown: ## Install 'markdown-preview.nvim' vim-plug
+	@grep -q '^call plug#begin' $(VIMRC) || $(MAKE) vim-plug;
+	$(eval LINE := $(shell awk '/^call plug#begin/{print NR; exit}' $(VIMRC)))
+	@if [ "$(LINE)" == "" ]; then \
+		echo "[ERROR] Cannot get find call plug\#being() function in '$(VIMRC)'"; \
+		exit 1; \
+	fi
+	$(eval PLUGIN := iamcco/markdown-preview.nvim)
+	@if grep -q "^Plug '$(PLUGIN)'" $(VIMRC); then \
+		echo "[INFO] vim plugin '$(PLUGIN)' is already installed!"; \
+	else \
+		command -v sed &> /dev/null || sudo $(INSTALLER) install -y sed; \
+		sed -i "$(LINE) a Plug '$(PLUGIN)', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}" $(VIMRC); \
+		vim +slient +VimEnter +PlugInstall +qall; \
+		echo "[INFO] vim plugin '$(PLUGIN)' is successfully installed!"; \
+	fi
+
+
 
 help: ## Show this help menu.
 	@echo "Usage: make [TARGET ...]"
@@ -105,4 +178,6 @@ help: ## Show this help menu.
 
 .DEFAULT_GOAL := help
 .EXPORT_ALL_VARIABLES:
-.PHONY: help profile tmux vim vim-plug
+.PHONY: help profile tmux \
+	vimrc vim-plug vim-install-plugin \
+	vim-nerdtree vim-tagbar
