@@ -133,43 +133,20 @@ vim-airline: ## Install 'Airline' and 'Airline-themes' vim-plug
 		echo "let g:airline_right_sep = ''" >> $(VIMRC); \
 	fi
 
-vim-install: vim-plug ## Add nerdtree vim-plug
-ifndef PLUGIN
-	$(error Pluging 'PLUGIN=<name>' is NOT provided!)
-endif
-	@grep -q '^call plug#begin' $(VIMRC) || $(MAKE) vim-plug;
-	$(eval LINE := $(shell awk '/^call plug#begin/{print NR; exit}' $(VIMRC)))
-	@if [ "$(LINE)" == "" ]; then \
-		echo "[ERROR] Cannot get find call plug\#being() function in '$(VIMRC)'"; \
-		exit 1; \
-	fi
-	@if grep -q "^Plug '$(PLUGIN)'" $(VIMRC); then \
-		echo "[INFO] vim plugin '$(PLUGIN)' is already installed!"; \
-	else \
-		command -v sed &> /dev/null || sudo $(INSTALLER) install -y sed; \
-		sed -i "$(LINE) a Plug '$(PLUGIN)'" $(VIMRC); \
-		vim +slient +VimEnter +PlugInstall +qall; \
-		echo "[INFO] vim plugin '$(PLUGIN)' is successfully installed!"; \
-	fi
-	
 vim-markdown: ## Install 'markdown-preview.nvim' vim-plug
-	@grep -q '^call plug#begin' $(VIMRC) || $(MAKE) vim-plug;
-	$(eval LINE := $(shell awk '/^call plug#begin/{print NR; exit}' $(VIMRC)))
-	@if [ "$(LINE)" == "" ]; then \
-		echo "[ERROR] Cannot get find call plug\#being() function in '$(VIMRC)'"; \
-		exit 1; \
+	$(eval NAME := iamcco/markdown-preview.nvim)
+	$(eval MAPPING := Mapping Ctrl+m to <Plug>MarkdownPreviewToggle)
+	@PLUGIN=$(NAME) $(MAKE) vim-install-plugin --no-print-directory
+	@if ! grep -q '$(MAPPING)' $(VIMRC); then \
+		echo "[INFO] $(MAPPING)"; \
+		echo -e '\n"$(MAPPING)' >> $(VIMRC); \
+		echo 'nmap <C-m> <Plug>MarkdownPreviewToggle' >> $(VIMRC); \
 	fi
-	$(eval PLUGIN := iamcco/markdown-preview.nvim)
-	@if grep -q "^Plug '$(PLUGIN)'" $(VIMRC); then \
-		echo "[INFO] vim plugin '$(PLUGIN)' is already installed!"; \
-	else \
-		command -v sed &> /dev/null || sudo $(INSTALLER) install -y sed; \
-		sed -i "$(LINE) a Plug '$(PLUGIN)', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}" $(VIMRC); \
-		vim +slient +VimEnter +PlugInstall +qall; \
-		echo "[INFO] vim plugin '$(PLUGIN)' is successfully installed!"; \
-	fi
-
-
+	$(eval BIN := $(HOME)/.vim/plugged/markdown-preview.nvim/app/bin/markdown-preview-linux)
+	@test -f $(BIN) || \
+		{ cd $(HOME)/.vim/plugged/markdown-preview.nvim/app; \
+		./install.sh; \
+		echo [INFO] Markdown-preview-linux sucessfully installed!; }
 
 help: ## Show this help menu.
 	@echo "Usage: make [TARGET ...]"
