@@ -148,6 +148,17 @@ vim-markdown: ## Install 'markdown-preview.nvim' vim-plug
 		./install.sh; \
 		echo [INFO] Markdown-preview-linux sucessfully installed!; }
 
+vim-editorconfig: ## Install 'editorconfig' vim-plug
+	$(eval NAME := editorconfig/editorconfig-vim)
+	$(eval SETTING := Setting defautl editor configuration)
+	@PLUGIN=$(NAME) $(MAKE) vim-install-plugin --no-print-directory
+	@if ! grep -q '$(SETTING)' $(VIMRC); then \
+		echo "[INFO] $(SETTING)"; \
+		echo -e '\n"$(SETTING)' >> $(VIMRC); \
+		echo 'au FileType gitcommit let b:EditorConfig_disable = 1' >> $(VIMRC); \
+		echo '"let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']' >> $(VIMRC); \
+	fi
+
 help: ## Show this help menu.
 	@echo "Usage: make [TARGET ...]"
 	@echo
