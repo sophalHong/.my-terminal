@@ -88,7 +88,9 @@ vim-nerdtree: ## Install 'nerdtree' vim-plug
 	fi
 
 vim-tagbar: ## Install 'tagbar' vim-plug
-	@command -v ctags-exuberant &> /dev/null || sudo $(INSTALLER) install exuberant-ctags -y
+	@command -v ctags &> /dev/null || \
+		sudo $(INSTALLER) install -y exuberant-ctags || \
+		sudo $(INSTALLER) install -y ctags
 	$(eval NAME := preservim/tagbar)
 	$(eval MAPPING := Mapping <space> to :TagbarToggle<CR>)
 	@PLUGIN=$(NAME) $(MAKE) vim-install-plugin --no-print-directory
