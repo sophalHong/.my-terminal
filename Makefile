@@ -49,7 +49,7 @@ endif
 	@mkdir -p $(HOME)/.vim
 	@cp -v $(VIM_DIR)/vimrc_basic $(VIMRC)
 
-vim-plug: ## Get and install vim-plug
+vim-plug: ## Install vim-plug
 	@command -v curl &> /dev/null || sudo $(INSTALLER) install -y curl
 	$(eval PLUG-VIM := $(HOME)/.vim/autoload/plug.vim)
 	@test -f $(PLUG-VIM) || curl -fLo $(PLUG-VIM) --create-dirs \
@@ -58,7 +58,7 @@ vim-plug: ## Get and install vim-plug
 	@grep -q '^call plug#begin' $(VIMRC) || \
 		sed -i "1icall plug#begin('~/.vim/plugged')\ncall plug#end()\n" $(VIMRC)
 
-vim-install-plugin: vim-plug ## Add nerdtree vim-plug
+vim-install-plugin: vim-plug ## Install specific Vim plugin (PLUGIN=<username>/<plugin> required)
 ifndef PLUGIN
 	$(error Pluging 'PLUGIN=<name>' is NOT provided!)
 endif
