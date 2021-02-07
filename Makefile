@@ -148,6 +148,16 @@ vim-markdown: ## Install 'markdown-preview.nvim' vim-plug
 		./install.sh; \
 		echo [INFO] Markdown-preview-linux sucessfully installed!; }
 
+vim-fugitive: ## Install 'vim-fugitive' vim-plug (Git plugin for Vim)
+	$(eval NAME := tpope/vim-fugitive)
+	$(eval MAPPING := Mapping Ctrl+g to :Gstatus<CR>)
+	@PLUGIN=$(NAME) $(MAKE) vim-install-plugin --no-print-directory
+	@if ! grep -q '$(MAPPING)' $(VIMRC); then \
+		echo "[INFO] $(MAPPING)"; \
+		echo -e '\n"$(MAPPING)' >> $(VIMRC); \
+		echo 'autocmd VimEnter * if exists(":Gstatus") | exe "map <c-g> :Gstatus<CR>" | endif' >> $(VIMRC); \
+	fi
+
 vim-editorconfig: ## Install 'editorconfig' vim-plug
 	$(eval NAME := editorconfig/editorconfig-vim)
 	$(eval SETTING := Setting defautl editor configuration)
