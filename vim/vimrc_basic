@@ -84,39 +84,6 @@ nnoremap <A-7> 7gt
 nnoremap <A-8> 8gt
 nnoremap <A-9> 9gt
 
-"==================Useful plugin=====================
-"Plug 'Valloric/YouCompleteMe' "For C/C++/Objective-C/C++/CUDA
-"Plug 'bundle/YCM-Generator', { 'branch': 'stable'}
-"Plug 'fatih/vim-go' , { 'do': ':GoInstallBinaries' }
-"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-
-"Plug 'nathanaelkane/vim-indent-guides' 
-autocmd VimEnter * if exists(":IndentGuidesToggle") | exe "map <c-i> :IndentGuidesToggle<CR>" | endif
-let g:indent_guides_guide_size = 1
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=235
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=237
-
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_left_sep = ""
-let g:airline_right_sep = ""
-
-"Plug 'rakr/vim-one'
-"Plug 'altercation/vim-colors-solarized'
-"Plug 'dracula/vim', { 'as': 'dracula' }
-"Plug 'morhetz/gruvbox'
-"Plug 'gosukiwi/vim-atom-dark'
-"Plug 'powerline/powerline'
-
-"Plug 'tpope/vim-fugitive'
-"Plug 'tpope/vim-surround'
-
-"Plug 'VundleVim/Vundle.vim'
-
 "======Autoload cscope.out=======
 function! LoadCscope()
   let db = findfile("cscope.out", ".;")
@@ -133,3 +100,21 @@ endfunction
 au BufEnter /* call LoadCscope()
 "==================================
 
+"==================Useful plugin=====================
+"Plug 'Valloric/YouCompleteMe' "For C/C++/Objective-C/C++/CUDA
+"Plug 'bundle/YCM-Generator', { 'branch': 'stable'}
+"Plug 'fatih/vim-go' , { 'do': ':GoInstallBinaries' }
+"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'nathanaelkane/vim-indent-guides' 
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+"Plug 'rakr/vim-one'
+"Plug 'altercation/vim-colors-solarized'
+"Plug 'dracula/vim', { 'as': 'dracula' }
+"Plug 'morhetz/gruvbox'
+"Plug 'gosukiwi/vim-atom-dark'
+"Plug 'powerline/powerline'
+"Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-surround'
+"Plug 'VundleVim/Vundle.vim'
+"====================================================
