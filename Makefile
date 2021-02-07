@@ -133,21 +133,6 @@ vim-airline: ## Install 'Airline' and 'Airline-themes' vim-plug
 		echo "let g:airline_right_sep = ''" >> $(VIMRC); \
 	fi
 
-vim-markdown: ## Install 'markdown-preview.nvim' vim-plug
-	$(eval NAME := iamcco/markdown-preview.nvim)
-	$(eval MAPPING := Mapping Ctrl+m to <Plug>MarkdownPreviewToggle)
-	@PLUGIN=$(NAME) $(MAKE) vim-install-plugin --no-print-directory
-	@if ! grep -q '$(MAPPING)' $(VIMRC); then \
-		echo "[INFO] $(MAPPING)"; \
-		echo -e '\n"$(MAPPING)' >> $(VIMRC); \
-		echo 'nmap <C-m> <Plug>MarkdownPreviewToggle' >> $(VIMRC); \
-	fi
-	$(eval BIN := $(HOME)/.vim/plugged/markdown-preview.nvim/app/bin/markdown-preview-linux)
-	@test -f $(BIN) || \
-		{ cd $(HOME)/.vim/plugged/markdown-preview.nvim/app; \
-		./install.sh; \
-		echo [INFO] Markdown-preview-linux sucessfully installed!; }
-
 vim-fugitive: ## Install 'vim-fugitive' vim-plug (Git plugin for Vim)
 	$(eval NAME := tpope/vim-fugitive)
 	$(eval MAPPING := Mapping Ctrl+g to :Gstatus<CR>)
@@ -168,6 +153,23 @@ vim-editorconfig: ## Install 'editorconfig' vim-plug
 		echo 'au FileType gitcommit let b:EditorConfig_disable = 1' >> $(VIMRC); \
 		echo '"let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']' >> $(VIMRC); \
 	fi
+
+vim-markdown: ## Install 'markdown-preview.nvim' vim-plug
+	$(eval NAME := iamcco/markdown-preview.nvim)
+	$(eval MAPPING := Mapping Ctrl+m to <Plug>MarkdownPreviewToggle)
+	@PLUGIN=$(NAME) $(MAKE) vim-install-plugin --no-print-directory
+	@if ! grep -q '$(MAPPING)' $(VIMRC); then \
+		echo "[INFO] $(MAPPING)"; \
+		echo -e '\n"$(MAPPING)' >> $(VIMRC); \
+		echo 'nmap <C-m> <Plug>MarkdownPreviewToggle' >> $(VIMRC); \
+	fi
+	$(eval BIN := $(HOME)/.vim/plugged/markdown-preview.nvim/app/bin/markdown-preview-linux)
+	@test -f $(BIN) || \
+		{ cd $(HOME)/.vim/plugged/markdown-preview.nvim/app; \
+		./install.sh; \
+		echo [INFO] Markdown-preview-linux sucessfully installed!; }
+
+all: profile tmux vimrc vim-plug vim-airline vim-nerdtree vim-tagbar vim-fugitive vim-indent vim-editorconfig vim-markdown
 
 help: ## Show this help menu.
 	@echo "Usage: make [TARGET ...]"
