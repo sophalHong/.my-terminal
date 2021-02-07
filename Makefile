@@ -143,6 +143,20 @@ vim-fugitive: ## Install 'vim-fugitive' vim-plug (Git plugin for Vim)
 		echo 'autocmd VimEnter * if exists(":Gstatus") | exe "map <c-g> :Gstatus<CR>" | endif' >> $(VIMRC); \
 	fi
 
+vim-surround: ## Install 'surround' vim-plug
+	$(eval NAME := tpope/vim-surround)
+	$(eval SETTING := Setting defautl surround configuration)
+	@PLUGIN=$(NAME) $(MAKE) vim-install-plugin --no-print-directory
+	@if ! grep -q '$(SETTING)' $(VIMRC); then \
+		echo "[INFO] $(SETTING)"; \
+		echo -e '\n"$(SETTING)' >> $(VIMRC); \
+		echo "\"Press cs\"' To change \"hello\" to 'hello'" >> $(VIMRC); \
+		echo "\"Press cst\" To go full circle" >> $(VIMRC); \
+		echo "\"Press ds\" To remove the delimiters entirely" >> $(VIMRC); \
+		echo "\"Now with cursor on \"Hello\", press yssiw] To change to [Hello] world!" >> $(VIMRC); \
+		echo "\"Wrap the entire line with yssb or yss)" >> $(VIMRC); \
+	fi
+
 vim-editorconfig: ## Install 'editorconfig' vim-plug
 	$(eval NAME := editorconfig/editorconfig-vim)
 	$(eval SETTING := Setting defautl editor configuration)
@@ -169,7 +183,9 @@ vim-markdown: ## Install 'markdown-preview.nvim' vim-plug
 		./install.sh; \
 		echo [INFO] Markdown-preview-linux sucessfully installed!; }
 
-all: profile tmux vimrc vim-plug vim-airline vim-nerdtree vim-tagbar vim-fugitive vim-indent vim-editorconfig vim-markdown
+all: profile tmux vimrc vim-plug vim-airline vim-nerdtree vim-tagbar vim-fugitive vim-surround vim-indent vim-editorconfig vim-markdown
+
+#TODO
 
 help: ## Show this help menu.
 	@echo "Usage: make [TARGET ...]"
