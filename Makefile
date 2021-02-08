@@ -185,9 +185,10 @@ vim-markdown: ## Install 'markdown-preview.nvim' vim-plug
 		./install.sh; \
 		echo [INFO] Markdown-preview-linux sucessfully installed!; }
 
-all: profile tmux vimrc vim-plug vim-airline vim-nerdtree vim-tagbar vim-fugitive vim-surround vim-indent vim-editorconfig vim-markdown
 
-#TODO
+vim-plugins: vimrc vim-plug vim-airline vim-nerdtree vim-tagbar vim-fugitive vim-surround vim-indent vim-editorconfig vim-markdown ## Install default basic vim plugins
+
+all: profile tmux vim-plugins ## Install all default basic setting (bashrc,tmux,vim-plugins)
 
 help: ## Show this help menu.
 	@echo "Usage: make [TARGET ...]"
@@ -196,6 +197,7 @@ help: ## Show this help menu.
 
 .DEFAULT_GOAL := help
 .EXPORT_ALL_VARIABLES:
-.PHONY: help profile tmux \
-	vimrc vim-plug vim-install-plugin \
-	vim-nerdtree vim-tagbar
+.PHONY: all help profile tmux \
+	vim-plugins vimrc vim-plug vim-install-plugin \
+	vim-nerdtree vim-tagbar vim-airline vim-editorconfig \
+	vim-fugitive vim-indent vim-surround vim-markdown
