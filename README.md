@@ -13,7 +13,7 @@ make profile
 ```
 ![profile](./images/shell_profile.png)
 
-### tmux
+### Tmux ([gpakoz/.tmux](https://github.com/gpakosz/.tmux))
 ```shell
 make tmux
 ```
