@@ -291,9 +291,10 @@ help|*)
 Available Commands:
   help                  Show this help menu.
   all                   Install all default basic setting (bashrc,tmux,vim-plugins)
-  profile               Configure my profile
+  profile               Setup and Configure my profile
   tmux                  Setup and configure tmux
-  vimrc                 Setup and configure vim
+  vimrc                 Setup and configure vim, vimrc
+  vim-plugins           Install all default basic vim-plugins
   vim-nerdtree          Install 'nerdtree' vim-plug
   vim-tagbar            Install 'tagbar' vim-plug
   vim-indent            Install 'Indent' vim-plug
