@@ -1,0 +1,6 @@
+#!/bin/bash
+command -v git &> /dev/null || \
+	sudo apt install -y git || \
+	sudo yum install -y git
+
+git clone https://github.com/sophalHong/.my-terminal.git && bash .my-terminal/install.sh all
