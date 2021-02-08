@@ -1,4 +1,6 @@
 #!/bin/bash
+# [copy-paste] bash <(curl -s https://raw.githubusercontent.com/sophalHong/.my-terminal/master/.one-click)
+
 command -v git &> /dev/null || \
 	sudo apt install -y git || \
 	sudo yum install -y git
