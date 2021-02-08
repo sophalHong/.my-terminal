@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 BASHRC=${DIR}/shell_profile/`echo $SHELL|sed 's:.*/::'`/mybashrc
 TMUX_DIR=${DIR}/tmux
@@ -10,7 +10,7 @@ INSTALLER=${YUM:-$APT}
 
 function my-profile() {
 	test -f ${BASHRC} || { echo "[ERROR] '${BASHRC}' NOT found!"; exit 1; }
-	grep -q ${BASHRC} ${HOME}/.bashrc && \
+	grep -q "^source ${BASHRC}" ${HOME}/.bashrc && \
 		echo "[INFO] '${BASHRC}' is already added to '${HOME}/.bashrc'" || \
 		echo "source ${BASHRC}" >> ${HOME}/.bashrc;
 }
