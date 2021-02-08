@@ -190,6 +190,31 @@ vim-plugins: vimrc vim-plug vim-airline vim-nerdtree vim-tagbar vim-fugitive vim
 
 all: profile tmux vim-plugins ## Install all default basic setting (bashrc,tmux,vim-plugins)
 
+clean-profile: ## Clean up my profile setting
+	@sed -i "s|source $(BASHRC)||g" $(HOME)/.bashrc
+	@echo "[INFO] Romoved my-profile bashrc..."
+
+clean-tmux: ## Clean up my tmux setting
+ifneq (,$(wildcard $(HOME)/.tmux.conf))
+	@mv -v $(HOME)/.tmux.conf $(HOME)/.tmux.conf_bak`date +%Y%m%d_%H%M`
+endif
+ifneq (,$(wildcard $(HOME)/.tmux.conf.local))
+	@mv -v $(HOME)/.tmux.conf.local $(HOME)/.tmux.conf.local_bak`date +%Y%m%d_%H%M`
+endif
+	@echo "[INFO] Romoved my tmux configuration..."
+
+clean-vim: ## Clean up my vim setting
+ifneq (,$(wildcard $(HOME)/.vim/.*))
+	@mv -v $(HOME)/.vim $(HOME)/.vim_bak`date +%Y%m%d_%H%M`
+endif
+ifneq (,$(wildcard $(HOME)/.vimrc))
+	@mv -v $(HOME)/.vimrc $(HOME)/.vimrc_bak`date +%Y%m%d_%H%M`
+endif
+	@echo "[INFO] Romoved my vim configuration..."
+
+clean: clean-profile clean-tmux clean-vim ## Clean up all my settings (profile, tmux, vim-plugins)
+
+
 help: ## Show this help menu.
 	@echo "Usage: make [TARGET ...]"
 	@echo
