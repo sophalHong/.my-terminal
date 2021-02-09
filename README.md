@@ -2,9 +2,9 @@
 This repository is created to have my terminal setting on every new created linux system.
 It includes configuration setting of **shell(bash/zsh) profile**, **tmux**, and **vim plugins**, which are my basic development environment tools.
 
-## Quick install (copy-paste)
+## Quick install
 ```shell
-bash <(curl -s https://raw.githubusercontent.com/sophalHong/.my-terminal/master/.one-click)
+bash <(curl -s https://raw.githubusercontent.com/sophalHong/.my-terminal/master/.one-click) && tmux
 ```
 
 ### Install all (profile, tmux, vim-plugins)
@@ -35,7 +35,7 @@ make vim-plugins
 make clean
 ```
 
-### More targets
+### Available commands
 ```shell
 Usage: make [TARGET ...]
 
