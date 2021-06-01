@@ -14,7 +14,7 @@ alias ll='ls -alhF --color=auto'
 alias q='exit'
 
 alias chk_port_ltn='sudo lsof -i -P -n | grep LISTEN'
-alias generate_ctags='source ~/.myEnv/others/gentags_cscope'
+alias generate_ctags='source ~/.my-terminal/vim/gentags_cscope'
 
 alias ssh_101='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 192.168.0.101' #pw: root
 alias ssh_102='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 192.168.0.102' #pw: root
