@@ -9,6 +9,7 @@
 [[ -x "$(command -v minikube)" ]] && source <(minikube completion bash)
 [[ -x "$(command -v kind)" ]] && source <(kind completion bash)
 [[ -x "$(command -v kubectl)" ]] && source <(kubectl completion bash)
+[[ -x "$(command -v kc)" ]] && source <(kc completion bash | sed -e 's/kubectl/kc/g')
 [[ -x "$(command -v velero)" ]] && source <(velero completion bash)
 [[ -x "$(command -v argo)" ]] && source <(argo completion bash)
 [[ -x "$(command -v k3d)" ]] && source <(k3d completion bash)
