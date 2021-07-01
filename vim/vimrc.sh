@@ -96,6 +96,7 @@ nnoremap <A-7> 7gt
 nnoremap <A-8> 8gt
 nnoremap <A-9> 9gt
 
+autocmd FileType yaml,yml setlocal ts=2 sts=2 sw=2 expandtab
 "==================Useful plugin=====================
 "Plug 'Valloric/YouCompleteMe' "For C/C++/Objective-C/C++/CUDA
 "Plug 'bundle/YCM-Generator', { 'branch': 'stable'}

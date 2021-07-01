@@ -26,10 +26,10 @@ if ! [ -x "$(command -v vim)" ]; then
 fi
 
 # Set vim default settings
-[ ! -f ../vimrc.sh ] && 
-	echo "NOT Found '../vimrc.sh' - set default vim" &&
-	exit
-bash ../vimrc.sh
+#[ ! -f ../vimrc.sh ] &&
+#	echo "NOT Found '../vimrc.sh' - set default vim" &&
+#	exit
+#bash ../vimrc.sh
 
 # Install git if not yet installed
 if ! [ -x "$(command -v git)" ]; then
@@ -122,10 +122,16 @@ else
 		  "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
 		  "filetypes": ["go"]
 		}
+	  },
+	  "yaml.schemas": {
+		"kubernetes": ["/*.yaml", "/*.yml"]
 	  }
 	}
 	EOF
 fi
+
+# Install vim-yaml
+vim +'CocInstall coc-yaml' +qall
 
 #read -d '' VAR << EOF
 #EOF
@@ -168,7 +174,7 @@ function! s:check_back_space() abort
 endfunction
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <c-l coc#refresh()
 
 " Use <cr> to confirm completion, <C-g>u means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
