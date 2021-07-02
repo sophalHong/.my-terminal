@@ -239,7 +239,21 @@ function my-vim_plugins() {
 	install_vim-markdown
 }
 
+function user-password-less() {
+	[ -z "$1" ] && echo "please input user to grant root permission" &&
+		echo "[Usage]: $0 <USER>" && exit 1
+
+	LOC=/etc/sudoers.d/$1
+	[ -f $LOC ] && echo "'$1' is already exist in '$LOC'" && exit 1 ||
+		echo "$1 ALL=(ALL) NOPASSWD:ALL" | sudo tee -a $LOC &&
+		sudo chmod 0440 $LOC &&
+		echo "[Done] set '$1' as root privilege without password..."
+}
+
 case "${1:-}" in
+passwd-less)
+	user-password-less $USER
+	;;
 profile)
 	my-profile
 	;;
@@ -291,6 +305,7 @@ help|*)
 Available Commands:
   help                  Show this help menu.
   all                   Install all default basic setting (bashrc,tmux,vim-plugins)
+  passwd-less           Enable current user ($USER) to grant sudo permission without password
   profile               Setup and Configure my profile
   tmux                  Setup and configure tmux
   vimrc                 Setup and configure vim, vimrc
