@@ -1,0 +1,17 @@
+# Copy to $HOME/.inputrc
+# $ bind -v
+# $ bind -p
+# $ showkey 
+$include /etc/inputrc
+
+set colored-stats On
+set completion-ignore-case On
+set completion-prefix-display-length 3
+set mark-symlinked-directories On
+set show-all-if-ambiguous On
+set show-all-if-unmodified On
+set visible-stats On
+
+# Make Shift-tab act like "cd ../" (move to parent directory)
+"\e[Z": "cd ..\n"
+"\C-f": "cd ..\n"
