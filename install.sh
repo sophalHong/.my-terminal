@@ -1,6 +1,7 @@
 #!/bin/bash
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 BASHRC=${DIR}/shell_profile/`echo $SHELL|sed 's:.*/::'`/mybashrc
+INPUTRC=${DIR}/shell_profile/`echo $SHELL|sed 's:.*/::'`/inputrc
 TMUX_DIR=${DIR}/tmux
 VIM_DIR=${DIR}/vim
 VIMRC=${HOME}/.vimrc
@@ -13,6 +14,7 @@ function my-profile() {
 	grep -q "^source ${BASHRC}" ${HOME}/.bashrc && \
 		echo "[INFO] '${BASHRC}' is already added to '${HOME}/.bashrc'" || \
 		echo "source ${BASHRC}" >> ${HOME}/.bashrc;
+	ln -s ${INPUTRC} $HOME/.inputrc
 }
 
 function clean-my-profile() {
