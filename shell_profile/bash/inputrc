@@ -14,4 +14,4 @@ set visible-stats On
 
 # Make Shift-tab act like "cd ../" (move to parent directory)
 "\e[Z": "cd ..\n"
-"\C-f": "cd ..\n"
+"\C-f": "cd ..; ls\n"
