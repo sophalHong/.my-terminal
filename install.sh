@@ -88,6 +88,21 @@ function vim-install-plugin() {
 	fi
 }
 
+function install_vim-lazylist(){
+	NAME="KabbAmine/lazyList.vim"
+	MAPPING="Mapping gll to :LazyList<CR>"
+	vim-install-plugin ${NAME}
+	if ! grep -q "${MAPPING}" ${VIMRC}; then
+		echo "[INFO] ${MAPPING}";
+		cat >> ${VIMRC} <<-EOF
+
+		"${MAPPING}
+		autocmd VimEnter * if exists(":LazyList") | exe "nnoremap gll :LazyList<CR>" | endif
+		autocmd VimEnter * if exists(":LazyList") | exe "vnoremap gll :LazyList<CR>" | endif
+		EOF
+	fi
+}
+
 function install_vim-nerdtree(){
 	NAME="preservim/nerdtree"
 	MAPPING="Mapping <Tab> to :NERDTreeToggle<CR>"
@@ -231,6 +246,7 @@ function install_vim-markdown(){
 
 function my-vim_plugins() {
 	my-vimrc
+	install_vim-lazylist
 	install_vim-nerdtree
 	install_vim-tagbar
 	install_vim-indent
@@ -264,6 +280,9 @@ tmux)
 	;;
 vimrc)
 	my-vimrc
+	;;
+vim-lazylist)
+	install_vim-lazylist
 	;;
 vim-nerdtree)
 	install_vim-nerdtree
@@ -312,6 +331,7 @@ Available Commands:
   tmux                  Setup and configure tmux
   vimrc                 Setup and configure vim, vimrc
   vim-plugins           Install all default basic vim-plugins
+  vim-lazylist          Install 'lazylist' vim-plug
   vim-nerdtree          Install 'nerdtree' vim-plug
   vim-tagbar            Install 'tagbar' vim-plug
   vim-indent            Install 'Indent' vim-plug
