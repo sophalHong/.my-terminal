@@ -20,4 +20,3 @@ alias ssh_101='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 192.168.0.101'
 alias ssh_102='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 192.168.0.102' #pw: root
 alias ssh_103='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 192.168.0.103' #pw: root
 alias ssh_tos='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 192.168.0.105' #pw: root
-alias ssh_cos='ssh -o TCPKeepAlive=yes -o ServerAliveInterval=360 192.168.11.127' #pw: root
