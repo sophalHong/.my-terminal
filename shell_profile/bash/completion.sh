@@ -22,6 +22,7 @@
 [[ -x "$(command -v goto)" ]] && source $MY_BASH_DIR/completions/goto.bash
 
 [[ -x "$(command -v mvn)" ]] && source $MY_BASH_DIR/completions/maven.bash
+[[ -x "$(command -v docker-compose)" ]] && source $MY_BASH_DIR/completions/docker-compose.bash
 
 [[ -x "$(command -v aws_completer)" ]] && complete -C `which aws_completer` aws
 [[ -x "$(command -v terraform)" ]] && complete -C `which terraform` terraform
