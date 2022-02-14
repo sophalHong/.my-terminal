@@ -5,6 +5,7 @@
 # gocomplete -install
 # gocomplete -uninstall
 
+[[ -x "$(command -v operator-sdk)" ]] && source <(operator-sdk completion bash)
 [[ -x "$(command -v golangci-lint)" ]] && source <(golangci-lint completion bash)
 [[ -x "$(command -v minikube)" ]] && source <(minikube completion bash)
 [[ -x "$(command -v kind)" ]] && source <(kind completion bash)
