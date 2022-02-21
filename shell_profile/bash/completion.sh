@@ -8,6 +8,7 @@
 [[ -x "$(command -v golangci-lint)" ]] && source <(golangci-lint completion bash)
 [[ -x "$(command -v operator-sdk)" ]] && source <(operator-sdk completion bash)
 [[ -x "$(command -v kubebuilder)" ]] && source <(kubebuilder completion bash)
+[[ -x "$(command -v kustomize)" ]] && source <(kustomize completion bash)
 [[ -x "$(command -v minikube)" ]] && source <(minikube completion bash)
 [[ -x "$(command -v kind)" ]] && source <(kind completion bash)
 [[ -x "$(command -v kubectl)" ]] && source <(kubectl completion bash)
