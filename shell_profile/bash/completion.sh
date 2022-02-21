@@ -27,3 +27,4 @@
 
 [[ -x "$(command -v aws_completer)" ]] && complete -C `which aws_completer` aws
 [[ -x "$(command -v terraform)" ]] && complete -C `which terraform` terraform
+[[ -x "$(command -v packer)" ]] && complete -C `which packer` packer
