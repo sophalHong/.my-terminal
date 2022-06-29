@@ -1,4 +1,5 @@
 #!/bin/bash
+
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 case "$(uname -s)" in
 	Linux*)
@@ -32,39 +33,65 @@ case "$(uname -s)" in
 esac
 
 CUR_SHELL="$(echo $SHELL|gsed 's:.*/::')"
-case "$CUR_SHELL" in
-	bash)
-		MYBASHRC=${DIR}/shell_profile/bashrc
-		;;
-	zsh)
-		ZSH_INS=${DIR}/shell_profile/oh-my-zsh_install.sh
-		ZSH_UNINS=${DIR}/shell_profile/oh-my-zsh_uninstall.sh
-		MYBASHRC=${DIR}/shell_profile/zshrc
-		BASHRC=${HOME}/.zshrc
-		test -f ${BASHRC} || touch ${BASHRC}
-		;;
-	*)
-		echo "UNSUPPORT SHELL ${CUR_SHELL}"
-		exit 1
-		;;
-esac
-
 INPUTRC=${DIR}/shell_profile/inputrc
 TMUX_DIR=${DIR}/tmux
 VIM_DIR=${DIR}/vim
 VIMRC=${HOME}/.vimrc
 
 function my-profile() {
-	echo "Installing 'ohmyzsh' ..." && 	sh -c "${ZSH_INS}"
-	OHMYZSH="${HOME}/.oh-my-zsh"
-	ln -v -s ${DIR}/shell_profile/sophal.zsh-theme ${OHMYZSH}/themes/
-	test -f ${MYBASHRC} || { echo "[ERROR] '${MYBASHRC}' NOT found!"; exit 1; }
-	grep -q "^source ${MYBASHRC}" ${BASHRC} && \
-		echo "[INFO] '${MYBASHRC}' is already added to '${BASHRC}'" || \
-		echo "source ${MYBASHRC}" >> ${BASHRC};
-	${SED} -i '/^ZSH_THEME/s/=.*/="sophal"/' ${BASHRC}
+	case "$CUR_SHELL" in
+		bash)
+			MYBASHRC=${DIR}/shell_profile/bashrc
+			test -f ${MYBASHRC} || { echo "[ERROR] '${MYBASHRC}' NOT found!"; exit 1; }
+			grep -q "^source ${MYBASHRC}" ${BASHRC} && \
+				echo "[INFO] '${MYBASHRC}' is already added to '${BASHRC}'" || \
+				echo "source ${MYBASHRC}" >> ${BASHRC};
+			;;
+		zsh)
+			echo "Installing zsh-users/antigen ..."
+			THEME=${DIR}/shell_profile/sophal.zsh-theme
+			test -f ${THEME} || {
+				echo "'${THEME}' NOT FOUNT!"
+				exit 1
+			}
+			ZSHRC=${HOME}/.zshrc
+			test -f ${ZSHRC} && mv ${ZSHRC} $HOME/.zshrc_`date +%Y%m%d_%H%M`
+			touch ${ZSHRC}
+			ANTIGEN=${HOME}/.antigen.zsh
+			curl -L git.io/antigen > ${ANTIGEN}
+
+			cat >> ${ZSHRC} <<-EOF
+			source ${ANTIGEN}
+			
+			# Load the oh-my-zsh's library.
+			antigen use oh-my-zsh
+			
+			# Bundles from the default repo (robbyrussell's oh-my-zsh).
+			antigen bundle git
+			antigen bundle heroku
+			antigen bundle pip
+			antigen bundle lein
+			antigen bundle command-not-found
+			
+			# Syntax highlighting bundle.
+			antigen bundle zsh-users/zsh-syntax-highlighting
+			
+			# Load the theme.
+			antigen theme robbyrussell
+			
+			# Tell Antigen that you're done.
+			antigen apply
+			EOF
+			echo "Done..."
+			;;
+		*)
+			echo "UNSUPPORT SHELL ${CUR_SHELL}"
+			exit 1
+			;;
+	esac
+
 	ln -v -s ${INPUTRC} $HOME/.inputrc
-	echo "[INFO] Execute 'source $HOME/.zshrc'"
+	echo "[INFO] Execute 'source $HOME/.zshrc' or Open new Terminal"
 }
 
 function clean-my-profile() {
