@@ -12,7 +12,11 @@ case "$(uname -s)" in
 		;;
 	Darwin*)
 		OS=Mac
-		command -v brew &> /dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+		command -v brew &> /dev/null || { 
+			/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" &&
+			echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile &&
+			eval "$(/opt/homebrew/bin/brew shellenv)"
+		}
 		command -v gsed &> /dev/null || brew install gnu-sed
 		command -v git &> /dev/null || brew install git
 		command -v curl &> /dev/null || brew install curl
