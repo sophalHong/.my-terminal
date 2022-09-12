@@ -103,6 +103,11 @@ function clean-my-profile() {
 
 
 function my-tmux() {
+	# Install Powerline-fonts
+	git clone https://github.com/powerline/fonts.git --depth=1
+	cd fonts && ./install.sh
+	cd .. && rm -rf fonts
+
 	command -v tmux &> /dev/null || ${INSTALLER} install tmux
 	test -f ${HOME}/.tmux.conf && \
 		mv ${HOME}/.tmux.conf ${HOME}/.tmux.conf_ori_`date +%Y%m%d_%H%M`
